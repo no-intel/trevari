@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   mysql:
     image: mysql:8.0
-    container_name: trevari-container
+    container_name: trevari-container-db
     restart: always
     environment:
       MYSQL_DATABASE: travari-lib
@@ -24,8 +22,24 @@ services:
       --local_infile=1
     volumes:
       - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uadmin", "-padmin" ]
+      interval: 5s
+      timeout: 3s
+      retries: 20
     networks:
-      - trevari-test  # 네트워크 설정 추가
+      - trevari-test
+
+  app:
+   build: .
+   container_name: trevari-container-app
+   depends_on:
+     mysql:
+       condition: service_healthy
+   environment:
+     SPRING_PROFILES_ACTIVE: docker
+   ports:
+     - "8080:8080"
 
 volumes:
   mysql_data:
