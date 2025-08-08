@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: trevari-container
+    restart: always
+    environment:
+      MYSQL_DATABASE: travari-lib
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    ports:
+      - "3307:3306"
+    command:
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --innodb-rollback-on-timeout=ON
+      --innodb_log_file_size=1G
+      --sql_mode=STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION
+      --innodb_buffer_pool_size=512M
+      --innodb_ft_enable_stopword=OFF
+      --local_infile=1
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - trevari-test  # 네트워크 설정 추가
+
+volumes:
+  mysql_data:
+
+networks:
+  trevari-test:
+    driver: bridge
