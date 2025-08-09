@@ -1,7 +1,6 @@
 services:
   mysql:
     image: mysql:8.0
-    container_name: trevari-container-db
     restart: always
     environment:
       MYSQL_DATABASE: travari-lib
@@ -31,16 +30,16 @@ services:
       - trevari-test
 
   app:
-   build: .
-   container_name: trevari-container-app
-   depends_on:
-     mysql:
-       condition: service_healthy
-   environment:
-     SPRING_PROFILES_ACTIVE: docker
-   ports:
-     - "8080:8080"
-
+    build: .
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+       SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8080:8080"
+    networks:
+      - trevari-test
 volumes:
   mysql_data:
 
