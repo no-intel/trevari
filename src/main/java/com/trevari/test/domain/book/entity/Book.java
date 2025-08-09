@@ -30,7 +30,7 @@ public class Book {
 
     @Id
     @Column(length = 13, nullable = false, updatable = false)
-    private String isbn;
+    private Long isbn;
 
     @Column(nullable = false)
     private String title;
@@ -64,7 +64,17 @@ public class Book {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-
+    public Book(Long isbn, String title, String subtitle, String author, String publisher, String image, int pages, BigDecimal price, LocalDate publishDate) {
+        this.isbn = isbn;
+        this.title = title;
+        this.subtitle = subtitle;
+        this.author = author;
+        this.publisher = publisher;
+        this.image = image;
+        this.pages = pages;
+        this.price = price;
+        this.publishDate = publishDate;
+    }
 
     // isbn 기준으로 동등성 맞추기
     @Override
