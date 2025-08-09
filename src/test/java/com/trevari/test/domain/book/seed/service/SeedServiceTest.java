@@ -61,7 +61,7 @@ class SeedServiceTest {
     @Test
     void setSeed() {
         final String KW = "mongoDB";
-
+        when(bookRepository.count()).thenReturn(0L);
         when(client.search(eq(KW), eq(1))).thenReturn(response);
         when(client.search(eq(KW), eq(2))).thenReturn(null);
         when(client.search(argThat(q -> !KW.equals(q)), anyInt())).thenReturn(null);

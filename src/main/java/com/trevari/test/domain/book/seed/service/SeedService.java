@@ -6,6 +6,10 @@ import com.trevari.test.domain.book.seed.dto.SeedDetailResponse;
 import com.trevari.test.domain.book.seed.dto.SeedSearchResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -23,8 +27,14 @@ public class SeedService {
     private static final String[] TARGETS = {"mongoDB", "javascript", "sql", "tdd", "docker"};
     private static final int PAGES_PER_KEYWORD = 5;
 
-    /** 키워드 4개를 4개의 스레드에서 병렬 실행 */
+    @EventListener(ApplicationReadyEvent.class)
     public void setSeeds() {
+        long count = bookRepository.count();
+        if (count > 0) {
+            log.info("====== Already Book Seeds ========");
+            return;
+        }
+
         try (ExecutorService pool = Executors.newFixedThreadPool(
                 TARGETS.length,
                 r -> {
@@ -47,7 +57,6 @@ public class SeedService {
                 } catch (InterruptedException ie) {
                     Thread.currentThread().interrupt();
                 } catch (ExecutionException ee) {
-                    // 최소 로깅만
                     log.error("[seed error] {}", String.valueOf(ee.getCause()));
                 }
             }
@@ -55,10 +64,9 @@ public class SeedService {
         }
     }
 
-    /** 한 키워드에 대해 /search/keyword/1..5 → 각 아이템 isbn13으로 상세 조회 & 저장 */
     private int seedOneKeyword(String keyword) {
         int saved = 0;
-        Set<String> seen = new LinkedHashSet<>(); // 중복 방지(페이지 간)
+        Set<String> seen = new LinkedHashSet<>();
 
         for (int page = 1; page <= PAGES_PER_KEYWORD; page++) {
             SeedSearchResponse res;
@@ -72,7 +80,7 @@ public class SeedService {
 
             for (var item : res.books()) {
                 String isbn = item.isbn13();
-                if (!seen.add(isbn)) continue; // 이미 처리한 isbn은 스킵
+                if (!seen.add(isbn)) continue;
 
                 try {
                     SeedDetailResponse detailResponse = client.get(isbn);
