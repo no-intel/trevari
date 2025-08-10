@@ -8,7 +8,7 @@ import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.trevari.test.domain.book.adapter.out.persistence.repository.BookRepositoryCustom;
-import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
+import com.trevari.test.domain.book.port.in.dto.BookFinderDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
 import com.trevari.test.domain.book.entity.Book;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<BookListResponseDto> findBooks(BooksSearchDto dto) {
+    public Page<BookListResponseDto> findBooks(BookFinderDto dto) {
 
         BooleanBuilder where = new BooleanBuilder();
         if (dto.query() != null && !dto.query().isBlank()) {

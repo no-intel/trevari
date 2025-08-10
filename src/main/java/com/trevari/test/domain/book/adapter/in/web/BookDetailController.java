@@ -1,6 +1,6 @@
 package com.trevari.test.domain.book.adapter.in.web;
 
-import com.trevari.test.domain.book.port.in.dto.BookSearchDto;
+import com.trevari.test.domain.book.port.in.dto.BookDetailDto;
 import com.trevari.test.domain.book.port.out.BookDetailResponse;
 import com.trevari.test.domain.book.application.BookDetailService;
 import jakarta.validation.constraints.Pattern;
@@ -24,7 +24,7 @@ public class BookDetailController {
     public ResponseEntity<BookDetailResponse> getBooks(@PathVariable("id")
                                                            @Pattern(regexp = "\\d{13}", message = "ISBN은 숫자 13자리여야 합니다.")
                                                            String id) {
-        BookDetailResponse response = service.getBookByISBN(BookSearchDto.of(id));
+        BookDetailResponse response = service.getBookByISBN(BookDetailDto.of(id));
         return ResponseEntity.ok(response);
     }
 }

@@ -1,9 +1,9 @@
 package com.trevari.test.domain.book.adapter.in.web;
 
-import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
+import com.trevari.test.domain.book.port.in.dto.BookFinderDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
 import com.trevari.test.domain.book.port.out.BookListResponse;
-import com.trevari.test.domain.book.application.BookSearchKeywordService;
+import com.trevari.test.domain.book.application.BookSimpleFinderService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,13 +28,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
-@WebMvcTest(controllers = BookSearchKeywordController.class)
-class BookSearchKeywordControllerTest {
+@WebMvcTest(controllers = BookSimpleFinderController.class)
+class BookSimpleFinderControllerTest {
     @Autowired
     MockMvc mockMvc;
 
     @MockitoBean
-    BookSearchKeywordService service;
+    BookSimpleFinderService service;
 
     @Test
     @DisplayName("도서 단순 검색 - 키워드 X, page = 0, size = 20")
@@ -58,7 +58,7 @@ class BookSearchKeywordControllerTest {
         );
         Page<BookListResponseDto> books = new PageImpl<>(dtos, PageRequest.of(page, pageSize), total);
         BookListResponse response = BookListResponse.of(keyword, books, executionTime);
-        when(service.getBooks(any(BooksSearchDto.class))).thenReturn(response);
+        when(service.getBooks(any(BookFinderDto.class))).thenReturn(response);
 
         // when & then
         mockMvc.perform(get("/api/books")
@@ -106,7 +106,7 @@ class BookSearchKeywordControllerTest {
         );
         Page<BookListResponseDto> books = new PageImpl<>(dtos, PageRequest.of(page, pageSize), total);
         BookListResponse response = BookListResponse.of(keyword, books, executionTime);
-        when(service.getBooks(any(BooksSearchDto.class))).thenReturn(response);
+        when(service.getBooks(any(BookFinderDto.class))).thenReturn(response);
 
         // when & then
         mockMvc.perform(get("/api/books")

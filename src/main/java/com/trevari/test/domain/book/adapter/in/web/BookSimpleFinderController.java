@@ -1,8 +1,8 @@
 package com.trevari.test.domain.book.adapter.in.web;
 
-import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
+import com.trevari.test.domain.book.port.in.dto.BookFinderDto;
 import com.trevari.test.domain.book.port.out.BookListResponse;
-import com.trevari.test.domain.book.application.BookSearchKeywordService;
+import com.trevari.test.domain.book.application.BookSimpleFinderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/books")
-public class BookSearchKeywordController {
+public class BookSimpleFinderController {
 
-    private final BookSearchKeywordService service;
+    private final BookSimpleFinderService service;
 
     @GetMapping
     public ResponseEntity<BookListResponse> getBooksKeyword(@RequestParam(required = false) String keyword,
                                                             @PageableDefault Pageable pageable) {
-        BookListResponse response = service.getBooks(BooksSearchDto.of(keyword, pageable));
+        BookListResponse response = service.getBooks(BookFinderDto.of(keyword, pageable));
         return ResponseEntity.ok(response);
     }
 }

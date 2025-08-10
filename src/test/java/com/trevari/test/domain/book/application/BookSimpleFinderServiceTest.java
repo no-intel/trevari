@@ -1,7 +1,7 @@
 package com.trevari.test.domain.book.application;
 
 import com.trevari.test.domain.book.adapter.out.persistence.repository.BookRepositoryCustom;
-import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
+import com.trevari.test.domain.book.port.in.dto.BookFinderDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
 import com.trevari.test.domain.book.port.out.BookListResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -23,13 +23,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class BookSearchKeywordServiceTest {
+class BookSimpleFinderServiceTest {
 
     @Mock
     BookRepositoryCustom bookRepositoryCustom;;
 
     @InjectMocks
-    BookSearchKeywordService service;
+    BookSimpleFinderService service;
 
     @Test
     @DisplayName("도서 리스트 조회 성공 - 검색어/페이지 정보/실행시간 매핑 확인")
@@ -37,7 +37,7 @@ class BookSearchKeywordServiceTest {
         // given
         Pageable page = PageRequest.of(0, 2);
         String keyword = "a";
-        BooksSearchDto dto = BooksSearchDto.of(keyword, page);
+        BookFinderDto dto = BookFinderDto.of(keyword, page);
 
         List<BookListResponseDto> result = List.of(
                 BookListResponseDto.builder()
@@ -52,7 +52,7 @@ class BookSearchKeywordServiceTest {
         );
 
         Page<BookListResponseDto> stubPage = new PageImpl<>(result, page, 100);
-        when(bookRepositoryCustom.findBooks(any(BooksSearchDto.class))).thenReturn(stubPage);
+        when(bookRepositoryCustom.findBooks(any(BookFinderDto.class))).thenReturn(stubPage);
 
         // when
         BookListResponse res = service.getBooks(dto);

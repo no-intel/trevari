@@ -1,7 +1,7 @@
 package com.trevari.test.domain.book.adapter.out.persistence.querydsl;
 
 import com.trevari.test.config.QuerydslTestConfig;
-import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
+import com.trevari.test.domain.book.port.in.dto.BookFinderDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
 import com.trevari.test.domain.book.entity.Book;
 import jakarta.persistence.EntityManager;
@@ -89,7 +89,7 @@ class BookRepositoryCustomImplTest {
     @DisplayName("심플 페이지네이션: 첫 페이지 2건, 총 4건")
     void simple_findBooks_pagination() {
         // given
-        BooksSearchDto dto = new BooksSearchDto(null, PageRequest.of(0, 2));
+        BookFinderDto dto = new BookFinderDto(null, PageRequest.of(0, 2));
 
         // when
         Page<BookListResponseDto> page = repository.findBooks(dto);
@@ -105,7 +105,7 @@ class BookRepositoryCustomImplTest {
     @DisplayName("단일 정렬: title desc")
     void simple_sort_findBooks_title_desc() {
         // given
-        BooksSearchDto dto = new BooksSearchDto(
+        BookFinderDto dto = new BookFinderDto(
                 null,
                 PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "title"))
         );
@@ -121,7 +121,7 @@ class BookRepositoryCustomImplTest {
     @DisplayName("복합 정렬: publishDate desc, title desc (A -> B -> D -> C)")
     void mult_sort_findBooks_publishDate_title() {
         // given
-        BooksSearchDto dto = new BooksSearchDto(
+        BookFinderDto dto = new BookFinderDto(
                 null,
                 PageRequest.of(
                         0, 10,
@@ -144,7 +144,7 @@ class BookRepositoryCustomImplTest {
     @DisplayName("심플 키워드 검색 : l")
     void simple_keyword_findBooks() {
         // given
-        BooksSearchDto dto = new BooksSearchDto("l", PageRequest.of(0, 10));
+        BookFinderDto dto = new BookFinderDto("l", PageRequest.of(0, 10));
 
         // when
         Page<BookListResponseDto> page = repository.findBooks(dto);
@@ -158,7 +158,7 @@ class BookRepositoryCustomImplTest {
     @DisplayName("심플 키워드 검색 : l & 심플 정렬 : title desc")
     void simple_keyword_sort_findBooks_title_desc() {
         // given
-        BooksSearchDto dto = new BooksSearchDto(
+        BookFinderDto dto = new BookFinderDto(
                 "l",
                 PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "title"))
         );
@@ -175,7 +175,7 @@ class BookRepositoryCustomImplTest {
     @DisplayName("심플 키워드 검색 : l & 복합 정렬 : publishDate desc, title desc")
     void simple_keyword_sort_findBooks_publishDate_title() {
         // given
-        BooksSearchDto dto = new BooksSearchDto(
+        BookFinderDto dto = new BookFinderDto(
                 "l",
                 PageRequest.of(0, 10,
                         Sort.by(

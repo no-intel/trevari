@@ -1,7 +1,6 @@
 package com.trevari.test.domain.book.adapter.in.web;
 
-import com.trevari.test.domain.book.adapter.in.web.BookDetailController;
-import com.trevari.test.domain.book.port.in.dto.BookSearchDto;
+import com.trevari.test.domain.book.port.in.dto.BookDetailDto;
 import com.trevari.test.domain.book.entity.Book;
 import com.trevari.test.domain.book.port.out.BookDetailResponse;
 import com.trevari.test.domain.book.application.BookDetailService;
@@ -49,7 +48,7 @@ class BookDetailControllerTest {
                         .publishDate(LocalDate.of(2024, 5, 10))
                         .build()
         );
-        when(service.getBookByISBN(any(BookSearchDto.class))).thenReturn(response);
+        when(service.getBookByISBN(any(BookDetailDto.class))).thenReturn(response);
 
         mockMvc.perform(get("/api/books/{id}", "9780000000001"))
                 .andExpect(status().isOk())

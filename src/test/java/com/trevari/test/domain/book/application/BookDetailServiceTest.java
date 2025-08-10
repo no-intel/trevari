@@ -1,6 +1,6 @@
 package com.trevari.test.domain.book.application;
 
-import com.trevari.test.domain.book.port.in.dto.BookSearchDto;
+import com.trevari.test.domain.book.port.in.dto.BookDetailDto;
 import com.trevari.test.domain.book.entity.Book;
 import com.trevari.test.domain.book.exception.NotFoundBookException;
 import com.trevari.test.domain.book.port.out.BookDetailResponse;
@@ -35,7 +35,7 @@ class BookDetailServiceTest {
         // given
         long isbn = 9780000000001L;
 
-        BookSearchDto dto = mock(BookSearchDto.class);
+        BookDetailDto dto = mock(BookDetailDto.class);
         Book book = Book.builder()
                 .isbn(isbn)
                 .title("Alpha")
@@ -71,7 +71,7 @@ class BookDetailServiceTest {
     @DisplayName("ISBN으로 도서 조회 실패 시, NotFoundBookException 발생")
     void getBook_notFound() {
         // given
-        BookSearchDto dto = mock(BookSearchDto.class);
+        BookDetailDto dto = mock(BookDetailDto.class);
 
         when(bookService.getBook(anyLong())).thenThrow(NotFoundBookException.class);
 
