@@ -1,16 +1,17 @@
 package com.trevari.test.domain.book.repository;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.trevari.test.domain.book.dto.GetBooksDto;
 import com.trevari.test.domain.book.dto.Projection.BooksResponseDto;
 import com.trevari.test.domain.book.entity.Book;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
@@ -27,7 +28,18 @@ public class BookRepositoryCustomImpl implements  BookRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<BooksResponseDto> findBooks(Pageable pageable) {
+    public Page<BooksResponseDto> findBooks(GetBooksDto dto) {
+
+        BooleanBuilder where = new BooleanBuilder();
+        if (dto.keyword() != null && !dto.keyword().isBlank()) {
+            String k = dto.keyword().trim();
+            where.and(
+                    book.title.containsIgnoreCase(k)
+                            .or(book.subtitle.containsIgnoreCase(k))
+                            .or(book.author.containsIgnoreCase(k))
+                            .or(book.publisher.containsIgnoreCase(k))
+            );
+        }
         List<BooksResponseDto> content = queryFactory
                 .select(Projections.constructor(BooksResponseDto.class,
                         book.isbn,
@@ -39,19 +51,19 @@ public class BookRepositoryCustomImpl implements  BookRepositoryCustom {
                         book.publishDate
                 ))
                 .from(book)
-                .orderBy(getOrderSpecifiers(pageable.getSort()))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
+                .where(where)
+                .orderBy(getOrderSpecifiers(dto.pageable().getSort()))
+                .offset(dto.pageable().getOffset())
+                .limit(dto.pageable().getPageSize())
                 .fetch();
 
         JPAQuery<Long> total = queryFactory
                 .select(book.count())
+                .where(where)
                 .from(book);
 
-        return PageableExecutionUtils.getPage(content, pageable, total::fetchOne);
+        return PageableExecutionUtils.getPage(content, dto.pageable(), total::fetchOne);
     }
-
-    ;
 
     private OrderSpecifier<?>[] getOrderSpecifiers(Sort sort) {
         List<OrderSpecifier<?>> orders = new ArrayList<>();
