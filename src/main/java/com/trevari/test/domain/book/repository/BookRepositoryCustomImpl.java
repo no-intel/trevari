@@ -83,11 +83,4 @@ public class BookRepositoryCustomImpl implements  BookRepositoryCustom {
         }
         return orders.toArray(new OrderSpecifier[0]);
     }
-//    // 참고: 단건 조회 예시 (이미 작성한 메서드 개선본)
-//    public Book findBookByIsbn(Long isbn) {
-//        QBook b = QBook.book;
-//        return queryFactory.selectFrom(b)
-//                .where(b.isbn.eq(isbn))
-//                .fetchOne();
-//    }
 }

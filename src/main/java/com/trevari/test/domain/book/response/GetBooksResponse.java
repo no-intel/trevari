@@ -19,7 +19,7 @@ public record GetBooksResponse(
     public static GetBooksResponse of(String keyword, Page<BooksResponseDto> books, long executionTime) {
         return new GetBooksResponse(
                 keyword,
-                PageInfo.of(books.getPageable().getPageNumber(), books.getPageable().getPageSize(), books.getTotalPages(), books.getTotalElements()),
+                PageInfo.of(books.getPageable().getPageNumber() + 1, books.getPageable().getPageSize(), books.getTotalPages(), books.getTotalElements()),
                 BookItem.of(books.getContent()),
                 SearchMetadata.of(executionTime, KEYWORD)
         );

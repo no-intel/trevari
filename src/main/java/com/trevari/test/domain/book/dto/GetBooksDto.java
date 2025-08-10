@@ -6,4 +6,7 @@ public record GetBooksDto(
         String keyword,
         Pageable pageable
 ) {
+    public static GetBooksDto of(String keyword, Pageable pageable) {
+        return new GetBooksDto(keyword, pageable);
+    }
 }
