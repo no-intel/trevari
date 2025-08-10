@@ -1,6 +1,6 @@
 package com.trevari.test.domain.book.application;
 
-import com.trevari.test.domain.book.port.in.dto.BooksSearchKeywordDto;
+import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookSearchResponseDto;
 import com.trevari.test.domain.book.infrastructure.repository.BookRepositoryCustom;
 import com.trevari.test.domain.book.port.out.BookSearchResponse;
@@ -33,9 +33,9 @@ class BookSearchKeywordServiceTest {
     @DisplayName("도서 리스트 조회 성공 - 검색어/페이지 정보/실행시간 매핑 확인")
     void getBooks_success() {
         // given
-        BooksSearchKeywordDto dto = mock(BooksSearchKeywordDto.class);
+        BooksSearchDto dto = mock(BooksSearchDto.class);
         String keyword = "javascript";
-        when(dto.keyword()).thenReturn(keyword);
+        when(dto.query()).thenReturn(keyword);
 
         BookSearchResponseDto item1 = mock(BookSearchResponseDto.class);
         BookSearchResponseDto item2 = mock(BookSearchResponseDto.class);

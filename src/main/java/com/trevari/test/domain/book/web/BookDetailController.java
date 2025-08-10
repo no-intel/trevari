@@ -2,7 +2,7 @@ package com.trevari.test.domain.book.web;
 
 import com.trevari.test.domain.book.port.in.dto.BookSearchDto;
 import com.trevari.test.domain.book.port.out.BookDetailResponse;
-import com.trevari.test.domain.book.application.BookSearchService;
+import com.trevari.test.domain.book.application.BookDetailService;
 import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/books")
 @Validated
-public class BookSearchController {
+public class BookDetailController {
 
-    private final BookSearchService service;
+    private final BookDetailService service;
 
     @GetMapping("/{id}")
     public ResponseEntity<BookDetailResponse> getBooks(@PathVariable("id")

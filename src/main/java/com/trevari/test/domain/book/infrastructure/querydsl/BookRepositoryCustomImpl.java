@@ -8,7 +8,7 @@ import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.trevari.test.domain.book.infrastructure.repository.BookRepositoryCustom;
-import com.trevari.test.domain.book.port.in.dto.BooksSearchKeywordDto;
+import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookSearchResponseDto;
 import com.trevari.test.domain.book.entity.Book;
 import lombok.RequiredArgsConstructor;
@@ -29,11 +29,11 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<BookSearchResponseDto> findBooks(BooksSearchKeywordDto dto) {
+    public Page<BookSearchResponseDto> findBooks(BooksSearchDto dto) {
 
         BooleanBuilder where = new BooleanBuilder();
-        if (dto.keyword() != null && !dto.keyword().isBlank()) {
-            String k = dto.keyword().trim();
+        if (dto.query() != null && !dto.query().isBlank()) {
+            String k = dto.query().trim();
             where.and(
                     book.title.containsIgnoreCase(k)
                             .or(book.subtitle.containsIgnoreCase(k))

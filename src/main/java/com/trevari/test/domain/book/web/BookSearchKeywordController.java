@@ -1,6 +1,6 @@
 package com.trevari.test.domain.book.web;
 
-import com.trevari.test.domain.book.port.in.dto.BooksSearchKeywordDto;
+import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
 import com.trevari.test.domain.book.port.out.BookSearchResponse;
 import com.trevari.test.domain.book.application.BookSearchKeywordService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class BookSearchKeywordController {
     @GetMapping
     public ResponseEntity<BookSearchResponse> getBooksKeyword(@RequestParam(required = false) String keyword,
                                                               @PageableDefault Pageable pageable) {
-        BookSearchResponse response = service.getBooks(BooksSearchKeywordDto.of(keyword, pageable));
+        BookSearchResponse response = service.getBooks(BooksSearchDto.of(keyword, pageable));
         return ResponseEntity.ok(response);
     }
 }

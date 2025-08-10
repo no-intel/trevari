@@ -1,6 +1,6 @@
 package com.trevari.test.domain.book.web;
 
-import com.trevari.test.domain.book.port.in.dto.BooksSearchKeywordDto;
+import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookSearchResponseDto;
 import com.trevari.test.domain.book.port.out.BookSearchResponse;
 import com.trevari.test.domain.book.application.BookSearchKeywordService;
@@ -58,7 +58,7 @@ class BookSearchKeywordControllerTest {
         );
         Page<BookSearchResponseDto> books = new PageImpl<>(dtos, PageRequest.of(page, pageSize), total);
         BookSearchResponse response = BookSearchResponse.of(keyword, books, executionTime);
-        when(service.getBooks(any(BooksSearchKeywordDto.class))).thenReturn(response);
+        when(service.getBooks(any(BooksSearchDto.class))).thenReturn(response);
 
         // when & then
         mockMvc.perform(get("/api/books")
@@ -106,7 +106,7 @@ class BookSearchKeywordControllerTest {
         );
         Page<BookSearchResponseDto> books = new PageImpl<>(dtos, PageRequest.of(page, pageSize), total);
         BookSearchResponse response = BookSearchResponse.of(keyword, books, executionTime);
-        when(service.getBooks(any(BooksSearchKeywordDto.class))).thenReturn(response);
+        when(service.getBooks(any(BooksSearchDto.class))).thenReturn(response);
 
         // when & then
         mockMvc.perform(get("/api/books")

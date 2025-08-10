@@ -3,7 +3,7 @@ package com.trevari.test.domain.book.web;
 import com.trevari.test.domain.book.port.in.dto.BookSearchDto;
 import com.trevari.test.domain.book.entity.Book;
 import com.trevari.test.domain.book.port.out.BookDetailResponse;
-import com.trevari.test.domain.book.application.BookSearchService;
+import com.trevari.test.domain.book.application.BookDetailService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,13 +23,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
-@WebMvcTest(controllers = BookSearchController.class)
-class BookSearchControllerTest {
+@WebMvcTest(controllers = BookDetailController.class)
+class BookDetailControllerTest {
     @Autowired
     MockMvc mockMvc;
 
     @MockitoBean
-    BookSearchService service;
+    BookDetailService service;
 
     @Test
     @DisplayName("도서 상세 조회 - 유효한 ISBN")

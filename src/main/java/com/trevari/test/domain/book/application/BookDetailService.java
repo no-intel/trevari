@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class BookSearchService {
+public class BookDetailService {
 
     public final BookService bookService;
 

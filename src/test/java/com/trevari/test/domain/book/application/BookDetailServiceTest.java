@@ -21,13 +21,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class BookSearchServiceTest {
+class BookDetailServiceTest {
 
     @Mock
     BookService bookService;
 
     @InjectMocks
-    BookSearchService bookSearchService;
+    BookDetailService bookSearchService;
 
     @Test
     @DisplayName("ISBN으로 도서 상세 조회 성공 시, BookDetailResponse로 매핑된다")
