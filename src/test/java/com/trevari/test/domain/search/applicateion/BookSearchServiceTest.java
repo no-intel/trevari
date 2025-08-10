@@ -1,9 +1,9 @@
-package com.trevari.test.domain.search.adapter.out;
+package com.trevari.test.domain.search.applicateion;
 
-import com.trevari.test.domain.book.port.in.BookSearchUseCase;
-import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
 import com.trevari.test.domain.book.port.out.BookListResponse;
+import com.trevari.test.domain.search.adapter.out.BookSearchAdapter;
+import com.trevari.test.domain.search.port.in.BookSearchDto;
 import com.trevari.test.domain.search.port.out.BookSearchResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,20 +24,21 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class BookSearchAdapterTest {
+class BookSearchServiceTest {
 
     @Mock
-    BookSearchUseCase bookSearchUseCase;
-
-    @InjectMocks
     BookSearchAdapter adapter;
 
+    @InjectMocks
+    BookSearchService service;
+
     @Test
-    @DisplayName("도서 단순 검색")
-    void searchBook_keyword() {
+    @DisplayName("도서 검색")
+    void searchBook() {
         // given
         Pageable page = PageRequest.of(0, 2);
         String keyword = "a";
+        BookSearchDto dto = BookSearchDto.of(keyword, page);
 
         List<BookListResponseDto> result = List.of(
                 BookListResponseDto.builder()
@@ -53,10 +54,10 @@ class BookSearchAdapterTest {
         Page<BookListResponseDto> stubPage = new PageImpl<>(result, page, 100);
         BookListResponse bookSearchResponse = BookListResponse.of(keyword, stubPage, 10L);
 
-        when(bookSearchUseCase.getBooks(any(BooksSearchDto.class))).thenReturn(bookSearchResponse);
+        when(adapter.searchBook(any(String.class), any(Pageable.class))).thenReturn(bookSearchResponse);
 
         // when
-        BookSearchResponse res = adapter.searchBook(keyword, page);
+        BookSearchResponse res = service.searchBook(dto);
 
         assertThat(res.query()).isEqualTo(keyword);
         assertThat(res.books().getFirst().id()).isEqualTo(9780000000001L);
