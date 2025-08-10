@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public record BooksResponseDto(
     Long id,
     String title,
-    String subTitle,
+    String subtitle,
     String image,
     String author,
     Long isbn,
