@@ -1,9 +1,8 @@
 package com.trevari.test.domain.book.adapter.in.web;
 
-import com.trevari.test.domain.book.adapter.in.web.BookSearchKeywordController;
 import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
-import com.trevari.test.domain.book.port.in.dto.Projection.BookSearchResponseDto;
-import com.trevari.test.domain.book.port.out.BookSearchResponse;
+import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
+import com.trevari.test.domain.book.port.out.BookListResponse;
 import com.trevari.test.domain.book.application.BookSearchKeywordService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -46,8 +45,8 @@ class BookSearchKeywordControllerTest {
         int pageSize = 20;
         long total = 1L;
         long executionTime = 6L;
-        List<BookSearchResponseDto> dtos = List.of(
-                BookSearchResponseDto.builder()
+        List<BookListResponseDto> dtos = List.of(
+                BookListResponseDto.builder()
                         .id(9780000000001L)
                         .title("Alpha")
                         .subtitle("A-sub")
@@ -57,8 +56,8 @@ class BookSearchKeywordControllerTest {
                         .publishDate(LocalDate.of(2024, 5, 10))
                         .build()
         );
-        Page<BookSearchResponseDto> books = new PageImpl<>(dtos, PageRequest.of(page, pageSize), total);
-        BookSearchResponse response = BookSearchResponse.of(keyword, books, executionTime);
+        Page<BookListResponseDto> books = new PageImpl<>(dtos, PageRequest.of(page, pageSize), total);
+        BookListResponse response = BookListResponse.of(keyword, books, executionTime);
         when(service.getBooks(any(BooksSearchDto.class))).thenReturn(response);
 
         // when & then
@@ -94,8 +93,8 @@ class BookSearchKeywordControllerTest {
         int pageSize = 20;
         long total = 1L;
         long executionTime = 6L;
-        List<BookSearchResponseDto> dtos = List.of(
-                BookSearchResponseDto.builder()
+        List<BookListResponseDto> dtos = List.of(
+                BookListResponseDto.builder()
                         .id(9780000000001L)
                         .title("Alpha")
                         .subtitle("A-sub")
@@ -105,8 +104,8 @@ class BookSearchKeywordControllerTest {
                         .publishDate(LocalDate.of(2024, 5, 10))
                         .build()
         );
-        Page<BookSearchResponseDto> books = new PageImpl<>(dtos, PageRequest.of(page, pageSize), total);
-        BookSearchResponse response = BookSearchResponse.of(keyword, books, executionTime);
+        Page<BookListResponseDto> books = new PageImpl<>(dtos, PageRequest.of(page, pageSize), total);
+        BookListResponse response = BookListResponse.of(keyword, books, executionTime);
         when(service.getBooks(any(BooksSearchDto.class))).thenReturn(response);
 
         // when & then

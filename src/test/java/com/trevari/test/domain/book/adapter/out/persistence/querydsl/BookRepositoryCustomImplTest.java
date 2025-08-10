@@ -1,9 +1,8 @@
 package com.trevari.test.domain.book.adapter.out.persistence.querydsl;
 
 import com.trevari.test.config.QuerydslTestConfig;
-import com.trevari.test.domain.book.adapter.out.persistence.querydsl.BookRepositoryCustomImpl;
 import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
-import com.trevari.test.domain.book.port.in.dto.Projection.BookSearchResponseDto;
+import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
 import com.trevari.test.domain.book.entity.Book;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -93,7 +92,7 @@ class BookRepositoryCustomImplTest {
         BooksSearchDto dto = new BooksSearchDto(null, PageRequest.of(0, 2));
 
         // when
-        Page<BookSearchResponseDto> page = repository.findBooks(dto);
+        Page<BookListResponseDto> page = repository.findBooks(dto);
 
         // then
         assertThat(page.getContent()).hasSize(2);
@@ -112,8 +111,8 @@ class BookRepositoryCustomImplTest {
         );
 
         // when
-        Page<BookSearchResponseDto> page = repository.findBooks(dto);
-        List<BookSearchResponseDto> content = page.getContent();
+        Page<BookListResponseDto> page = repository.findBooks(dto);
+        List<BookListResponseDto> content = page.getContent();
 
         assertThat(extractTitles(content)).containsExactly("Delta", "Charlie", "Bravo", "Alpha");
     }
@@ -134,8 +133,8 @@ class BookRepositoryCustomImplTest {
         );
 
         // when
-        Page<BookSearchResponseDto> page = repository.findBooks(dto);
-        List<BookSearchResponseDto> content = page.getContent();
+        Page<BookListResponseDto> page = repository.findBooks(dto);
+        List<BookListResponseDto> content = page.getContent();
 
         // then
         assertThat(extractTitles(content)).containsExactly("Alpha", "Bravo", "Delta", "Charlie");
@@ -148,8 +147,8 @@ class BookRepositoryCustomImplTest {
         BooksSearchDto dto = new BooksSearchDto("l", PageRequest.of(0, 10));
 
         // when
-        Page<BookSearchResponseDto> page = repository.findBooks(dto);
-        List<BookSearchResponseDto> content = page.getContent();
+        Page<BookListResponseDto> page = repository.findBooks(dto);
+        List<BookListResponseDto> content = page.getContent();
 
         // then
         assertThat(extractTitles(content)).containsExactly("Alpha", "Charlie", "Delta");
@@ -165,8 +164,8 @@ class BookRepositoryCustomImplTest {
         );
 
         // when
-        Page<BookSearchResponseDto> page = repository.findBooks(dto);
-        List<BookSearchResponseDto> content = page.getContent();
+        Page<BookListResponseDto> page = repository.findBooks(dto);
+        List<BookListResponseDto> content = page.getContent();
 
         // then
         assertThat(extractTitles(content)).containsExactly("Delta", "Charlie", "Alpha");
@@ -187,14 +186,14 @@ class BookRepositoryCustomImplTest {
         );
 
         // when
-        Page<BookSearchResponseDto> page = repository.findBooks(dto);
-        List<BookSearchResponseDto> content = page.getContent();
+        Page<BookListResponseDto> page = repository.findBooks(dto);
+        List<BookListResponseDto> content = page.getContent();
 
         // then
         assertThat(extractTitles(content)).containsExactly("Alpha", "Delta", "Charlie");
     }
 
-    private List<String> extractTitles(List<BookSearchResponseDto> list) {
-        return list.stream().map(BookSearchResponseDto::title).toList();
+    private List<String> extractTitles(List<BookListResponseDto> list) {
+        return list.stream().map(BookListResponseDto::title).toList();
     }
 }

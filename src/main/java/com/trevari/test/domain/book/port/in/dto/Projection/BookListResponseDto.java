@@ -6,7 +6,7 @@ import lombok.Builder;
 import java.time.LocalDate;
 
 @Builder
-public record BookSearchResponseDto(
+public record BookListResponseDto(
     Long id,
     String title,
     String subtitle,
@@ -16,5 +16,5 @@ public record BookSearchResponseDto(
     LocalDate publishDate
 ) {
     @QueryProjection
-    public BookSearchResponseDto {}
+    public BookListResponseDto {}
 }

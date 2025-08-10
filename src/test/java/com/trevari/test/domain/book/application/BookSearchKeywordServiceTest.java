@@ -1,9 +1,9 @@
 package com.trevari.test.domain.book.application;
 
 import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
-import com.trevari.test.domain.book.port.in.dto.Projection.BookSearchResponseDto;
+import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
 import com.trevari.test.domain.book.adapter.out.persistence.repository.BookRepositoryCustom;
-import com.trevari.test.domain.book.port.out.BookSearchResponse;
+import com.trevari.test.domain.book.port.out.BookListResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,18 +37,18 @@ class BookSearchKeywordServiceTest {
         String keyword = "javascript";
         when(dto.query()).thenReturn(keyword);
 
-        BookSearchResponseDto item1 = mock(BookSearchResponseDto.class);
-        BookSearchResponseDto item2 = mock(BookSearchResponseDto.class);
+        BookListResponseDto item1 = mock(BookListResponseDto.class);
+        BookListResponseDto item2 = mock(BookListResponseDto.class);
         when(item1.title()).thenReturn("javascript Good");
         when(item2.title()).thenReturn("javascript Bad");
 
-        Page<BookSearchResponseDto> stubPage =
+        Page<BookListResponseDto> stubPage =
                 new PageImpl<>(List.of(item1, item2), PageRequest.of(0, 2), 100);
 
         when(bookRepositoryCustom.findBooks(dto)).thenReturn(stubPage);
 
         // when
-        BookSearchResponse res = service.getBooks(dto);
+        BookListResponse res = service.getBooks(dto);
 
         // then
         assertThat(res).isNotNull();

@@ -1,10 +1,10 @@
 package com.trevari.test.domain.book.application;
 
 import com.trevari.test.domain.book.adapter.out.persistence.repository.BookRepositoryCustom;
-import com.trevari.test.domain.book.port.in.SearchBookUseCase;
+import com.trevari.test.domain.book.port.in.BookSearchUseCase;
 import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
-import com.trevari.test.domain.book.port.in.dto.Projection.BookSearchResponseDto;
-import com.trevari.test.domain.book.port.out.BookSearchResponse;
+import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
+import com.trevari.test.domain.book.port.out.BookListResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -13,14 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class BookSearchKeywordService implements SearchBookUseCase {
+public class BookSearchKeywordService implements BookSearchUseCase {
     private final BookRepositoryCustom bookRepositoryCustom;
 
-    public BookSearchResponse getBooks(BooksSearchDto dto) {
+    public BookListResponse getBooks(BooksSearchDto dto) {
         long start = System.currentTimeMillis();
-        Page<BookSearchResponseDto> books = bookRepositoryCustom.findBooks(dto);
+        Page<BookListResponseDto> books = bookRepositoryCustom.findBooks(dto);
         long executionTime = System.currentTimeMillis() - start;
-        return BookSearchResponse.of(dto.query(), books, executionTime);
+        return BookListResponse.of(dto.query(), books, executionTime);
     }
 
 }
