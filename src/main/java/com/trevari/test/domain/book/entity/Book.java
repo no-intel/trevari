@@ -2,6 +2,7 @@ package com.trevari.test.domain.book.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -64,6 +65,7 @@ public class Book {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Builder
     public Book(Long isbn, String title, String subtitle, String author, String publisher, String image, int pages, BigDecimal price, LocalDate publishDate) {
         this.isbn = isbn;
         this.title = title;
@@ -75,6 +77,7 @@ public class Book {
         this.price = price;
         this.publishDate = publishDate;
     }
+
 
     // isbn 기준으로 동등성 맞추기
     @Override
