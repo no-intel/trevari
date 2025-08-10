@@ -1,15 +1,13 @@
 package com.trevari.test.domain.book.seed.service;
 
 import com.trevari.test.domain.book.entity.Book;
-import com.trevari.test.domain.book.repository.BookRepository;
+import com.trevari.test.domain.book.infrastructure.repository.BookRepository;
 import com.trevari.test.domain.book.seed.dto.SeedDetailResponse;
 import com.trevari.test.domain.book.seed.dto.SeedSearchResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
