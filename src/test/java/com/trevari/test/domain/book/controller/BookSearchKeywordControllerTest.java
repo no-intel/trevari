@@ -1,9 +1,9 @@
 package com.trevari.test.domain.book.controller;
 
-import com.trevari.test.domain.book.dto.GetBooksDto;
-import com.trevari.test.domain.book.dto.Projection.BooksResponseDto;
-import com.trevari.test.domain.book.response.GetBooksResponse;
-import com.trevari.test.domain.book.service.GetBookService;
+import com.trevari.test.domain.book.dto.BooksSearchKeywordDto;
+import com.trevari.test.domain.book.dto.Projection.BookSearchResponseDto;
+import com.trevari.test.domain.book.response.BookSearchResponse;
+import com.trevari.test.domain.book.service.BookSearchKeywordService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,13 +28,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
-@WebMvcTest(controllers = GetBookController.class)
-class GetBookControllerTest {
+@WebMvcTest(controllers = BookSearchKeywordController.class)
+class BookSearchKeywordControllerTest {
     @Autowired
     MockMvc mockMvc;
 
     @MockitoBean
-    GetBookService service;
+    BookSearchKeywordService service;
 
     @Test
     @DisplayName("도서 단순 검색 - 키워드 X, page = 0, size = 20")
@@ -45,8 +45,8 @@ class GetBookControllerTest {
         int pageSize = 20;
         long total = 1L;
         long executionTime = 6L;
-        List<BooksResponseDto> dtos = List.of(
-                BooksResponseDto.builder()
+        List<BookSearchResponseDto> dtos = List.of(
+                BookSearchResponseDto.builder()
                         .id(9780000000001L)
                         .title("Alpha")
                         .subtitle("A-sub")
@@ -56,9 +56,9 @@ class GetBookControllerTest {
                         .publishDate(LocalDate.of(2024, 5, 10))
                         .build()
         );
-        Page<BooksResponseDto> books = new PageImpl<>(dtos, PageRequest.of(page, pageSize), total);
-        GetBooksResponse response = GetBooksResponse.of(keyword, books, executionTime);
-        when(service.getBooks(any(GetBooksDto.class))).thenReturn(response);
+        Page<BookSearchResponseDto> books = new PageImpl<>(dtos, PageRequest.of(page, pageSize), total);
+        BookSearchResponse response = BookSearchResponse.of(keyword, books, executionTime);
+        when(service.getBooks(any(BooksSearchKeywordDto.class))).thenReturn(response);
 
         // when & then
         mockMvc.perform(get("/api/books")
@@ -93,8 +93,8 @@ class GetBookControllerTest {
         int pageSize = 20;
         long total = 1L;
         long executionTime = 6L;
-        List<BooksResponseDto> dtos = List.of(
-                BooksResponseDto.builder()
+        List<BookSearchResponseDto> dtos = List.of(
+                BookSearchResponseDto.builder()
                         .id(9780000000001L)
                         .title("Alpha")
                         .subtitle("A-sub")
@@ -104,9 +104,9 @@ class GetBookControllerTest {
                         .publishDate(LocalDate.of(2024, 5, 10))
                         .build()
         );
-        Page<BooksResponseDto> books = new PageImpl<>(dtos, PageRequest.of(page, pageSize), total);
-        GetBooksResponse response = GetBooksResponse.of(keyword, books, executionTime);
-        when(service.getBooks(any(GetBooksDto.class))).thenReturn(response);
+        Page<BookSearchResponseDto> books = new PageImpl<>(dtos, PageRequest.of(page, pageSize), total);
+        BookSearchResponse response = BookSearchResponse.of(keyword, books, executionTime);
+        when(service.getBooks(any(BooksSearchKeywordDto.class))).thenReturn(response);
 
         // when & then
         mockMvc.perform(get("/api/books")

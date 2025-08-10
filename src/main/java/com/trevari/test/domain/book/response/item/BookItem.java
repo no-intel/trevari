@@ -1,7 +1,7 @@
 package com.trevari.test.domain.book.response.item;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.trevari.test.domain.book.dto.Projection.BooksResponseDto;
+import com.trevari.test.domain.book.dto.Projection.BookSearchResponseDto;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public record BookItem(
         @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDate published
 ) {
-    public static List<BookItem> of(List<BooksResponseDto> books) {
+    public static List<BookItem> of(List<BookSearchResponseDto> books) {
         List<BookItem> bookItems = new ArrayList<>();
         for (var book : books) {
             bookItems.add(

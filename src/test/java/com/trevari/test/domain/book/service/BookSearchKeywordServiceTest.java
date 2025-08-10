@@ -1,9 +1,9 @@
 package com.trevari.test.domain.book.service;
 
-import com.trevari.test.domain.book.dto.GetBooksDto;
-import com.trevari.test.domain.book.dto.Projection.BooksResponseDto;
+import com.trevari.test.domain.book.dto.BooksSearchKeywordDto;
+import com.trevari.test.domain.book.dto.Projection.BookSearchResponseDto;
 import com.trevari.test.domain.book.repository.BookRepositoryCustom;
-import com.trevari.test.domain.book.response.GetBooksResponse;
+import com.trevari.test.domain.book.response.BookSearchResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,37 +17,38 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class GetBookServiceTest {
+class BookSearchKeywordServiceTest {
 
     @Mock
     BookRepositoryCustom bookRepositoryCustom;;
 
     @InjectMocks
-    GetBookService service;
+    BookSearchKeywordService service;
 
     @Test
     @DisplayName("도서 리스트 조회 성공 - 검색어/페이지 정보/실행시간 매핑 확인")
     void getBooks_success() {
         // given
-        GetBooksDto dto = mock(GetBooksDto.class);
+        BooksSearchKeywordDto dto = mock(BooksSearchKeywordDto.class);
         String keyword = "javascript";
         when(dto.keyword()).thenReturn(keyword);
 
-        BooksResponseDto item1 = mock(BooksResponseDto.class);
-        BooksResponseDto item2 = mock(BooksResponseDto.class);
+        BookSearchResponseDto item1 = mock(BookSearchResponseDto.class);
+        BookSearchResponseDto item2 = mock(BookSearchResponseDto.class);
         when(item1.title()).thenReturn("javascript Good");
         when(item2.title()).thenReturn("javascript Bad");
 
-        Page<BooksResponseDto> stubPage =
+        Page<BookSearchResponseDto> stubPage =
                 new PageImpl<>(List.of(item1, item2), PageRequest.of(0, 2), 100);
 
         when(bookRepositoryCustom.findBooks(dto)).thenReturn(stubPage);
 
         // when
-        GetBooksResponse res = service.getBooks(dto);
+        BookSearchResponse res = service.getBooks(dto);
 
         // then
         assertThat(res).isNotNull();

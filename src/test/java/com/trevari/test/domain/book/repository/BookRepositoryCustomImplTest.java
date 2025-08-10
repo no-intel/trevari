@@ -1,8 +1,8 @@
 package com.trevari.test.domain.book.repository;
 
 import com.trevari.test.config.QuerydslTestConfig;
-import com.trevari.test.domain.book.dto.GetBooksDto;
-import com.trevari.test.domain.book.dto.Projection.BooksResponseDto;
+import com.trevari.test.domain.book.dto.BooksSearchKeywordDto;
+import com.trevari.test.domain.book.dto.Projection.BookSearchResponseDto;
 import com.trevari.test.domain.book.entity.Book;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -89,10 +89,10 @@ class BookRepositoryCustomImplTest {
     @DisplayName("심플 페이지네이션: 첫 페이지 2건, 총 4건")
     void simple_findBooks_pagination() {
         // given
-        GetBooksDto dto = new GetBooksDto(null, PageRequest.of(0, 2));
+        BooksSearchKeywordDto dto = new BooksSearchKeywordDto(null, PageRequest.of(0, 2));
 
         // when
-        Page<BooksResponseDto> page = repository.findBooks(dto);
+        Page<BookSearchResponseDto> page = repository.findBooks(dto);
 
         // then
         assertThat(page.getContent()).hasSize(2);
@@ -105,14 +105,14 @@ class BookRepositoryCustomImplTest {
     @DisplayName("단일 정렬: title desc")
     void simple_sort_findBooks_title_desc() {
         // given
-        GetBooksDto dto = new GetBooksDto(
+        BooksSearchKeywordDto dto = new BooksSearchKeywordDto(
                 null,
                 PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "title"))
         );
 
         // when
-        Page<BooksResponseDto> page = repository.findBooks(dto);
-        List<BooksResponseDto> content = page.getContent();
+        Page<BookSearchResponseDto> page = repository.findBooks(dto);
+        List<BookSearchResponseDto> content = page.getContent();
 
         assertThat(extractTitles(content)).containsExactly("Delta", "Charlie", "Bravo", "Alpha");
     }
@@ -121,7 +121,7 @@ class BookRepositoryCustomImplTest {
     @DisplayName("복합 정렬: publishDate desc, title desc (A -> B -> D -> C)")
     void mult_sort_findBooks_publishDate_title() {
         // given
-        GetBooksDto dto = new GetBooksDto(
+        BooksSearchKeywordDto dto = new BooksSearchKeywordDto(
                 null,
                 PageRequest.of(
                         0, 10,
@@ -133,8 +133,8 @@ class BookRepositoryCustomImplTest {
         );
 
         // when
-        Page<BooksResponseDto> page = repository.findBooks(dto);
-        List<BooksResponseDto> content = page.getContent();
+        Page<BookSearchResponseDto> page = repository.findBooks(dto);
+        List<BookSearchResponseDto> content = page.getContent();
 
         // then
         assertThat(extractTitles(content)).containsExactly("Alpha", "Bravo", "Delta", "Charlie");
@@ -144,11 +144,11 @@ class BookRepositoryCustomImplTest {
     @DisplayName("심플 키워드 검색 : l")
     void simple_keyword_findBooks() {
         // given
-        GetBooksDto dto = new GetBooksDto("l", PageRequest.of(0, 10));
+        BooksSearchKeywordDto dto = new BooksSearchKeywordDto("l", PageRequest.of(0, 10));
 
         // when
-        Page<BooksResponseDto> page = repository.findBooks(dto);
-        List<BooksResponseDto> content = page.getContent();
+        Page<BookSearchResponseDto> page = repository.findBooks(dto);
+        List<BookSearchResponseDto> content = page.getContent();
 
         // then
         assertThat(extractTitles(content)).containsExactly("Alpha", "Charlie", "Delta");
@@ -158,14 +158,14 @@ class BookRepositoryCustomImplTest {
     @DisplayName("심플 키워드 검색 : l & 심플 정렬 : title desc")
     void simple_keyword_sort_findBooks_title_desc() {
         // given
-        GetBooksDto dto = new GetBooksDto(
+        BooksSearchKeywordDto dto = new BooksSearchKeywordDto(
                 "l",
                 PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "title"))
         );
 
         // when
-        Page<BooksResponseDto> page = repository.findBooks(dto);
-        List<BooksResponseDto> content = page.getContent();
+        Page<BookSearchResponseDto> page = repository.findBooks(dto);
+        List<BookSearchResponseDto> content = page.getContent();
 
         // then
         assertThat(extractTitles(content)).containsExactly("Delta", "Charlie", "Alpha");
@@ -175,7 +175,7 @@ class BookRepositoryCustomImplTest {
     @DisplayName("심플 키워드 검색 : l & 복합 정렬 : publishDate desc, title desc")
     void simple_keyword_sort_findBooks_publishDate_title() {
         // given
-        GetBooksDto dto = new GetBooksDto(
+        BooksSearchKeywordDto dto = new BooksSearchKeywordDto(
                 "l",
                 PageRequest.of(0, 10,
                         Sort.by(
@@ -186,14 +186,14 @@ class BookRepositoryCustomImplTest {
         );
 
         // when
-        Page<BooksResponseDto> page = repository.findBooks(dto);
-        List<BooksResponseDto> content = page.getContent();
+        Page<BookSearchResponseDto> page = repository.findBooks(dto);
+        List<BookSearchResponseDto> content = page.getContent();
 
         // then
         assertThat(extractTitles(content)).containsExactly("Alpha", "Delta", "Charlie");
     }
 
-    private List<String> extractTitles(List<BooksResponseDto> list) {
-        return list.stream().map(BooksResponseDto::title).toList();
+    private List<String> extractTitles(List<BookSearchResponseDto> list) {
+        return list.stream().map(BookSearchResponseDto::title).toList();
     }
 }

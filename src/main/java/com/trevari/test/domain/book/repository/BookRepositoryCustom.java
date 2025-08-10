@@ -1,9 +1,9 @@
 package com.trevari.test.domain.book.repository;
 
-import com.trevari.test.domain.book.dto.GetBooksDto;
-import com.trevari.test.domain.book.dto.Projection.BooksResponseDto;
+import com.trevari.test.domain.book.dto.BooksSearchKeywordDto;
+import com.trevari.test.domain.book.dto.Projection.BookSearchResponseDto;
 import org.springframework.data.domain.Page;
 
 public interface BookRepositoryCustom {
-    Page<BooksResponseDto> findBooks(GetBooksDto dto);
+    Page<BookSearchResponseDto> findBooks(BooksSearchKeywordDto dto);
 }

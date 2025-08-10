@@ -7,8 +7,8 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.trevari.test.domain.book.dto.GetBooksDto;
-import com.trevari.test.domain.book.dto.Projection.BooksResponseDto;
+import com.trevari.test.domain.book.dto.BooksSearchKeywordDto;
+import com.trevari.test.domain.book.dto.Projection.BookSearchResponseDto;
 import com.trevari.test.domain.book.entity.Book;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -28,7 +28,7 @@ public class BookRepositoryCustomImpl implements  BookRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<BooksResponseDto> findBooks(GetBooksDto dto) {
+    public Page<BookSearchResponseDto> findBooks(BooksSearchKeywordDto dto) {
 
         BooleanBuilder where = new BooleanBuilder();
         if (dto.keyword() != null && !dto.keyword().isBlank()) {
@@ -40,8 +40,8 @@ public class BookRepositoryCustomImpl implements  BookRepositoryCustom {
                             .or(book.publisher.containsIgnoreCase(k))
             );
         }
-        List<BooksResponseDto> content = queryFactory
-                .select(Projections.constructor(BooksResponseDto.class,
+        List<BookSearchResponseDto> content = queryFactory
+                .select(Projections.constructor(BookSearchResponseDto.class,
                         book.isbn,
                         book.title,
                         book.subtitle,

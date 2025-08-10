@@ -1,9 +1,9 @@
 package com.trevari.test.domain.book.service;
 
-import com.trevari.test.domain.book.dto.GetBooksDto;
-import com.trevari.test.domain.book.dto.Projection.BooksResponseDto;
+import com.trevari.test.domain.book.dto.BooksSearchKeywordDto;
+import com.trevari.test.domain.book.dto.Projection.BookSearchResponseDto;
 import com.trevari.test.domain.book.repository.BookRepositoryCustom;
-import com.trevari.test.domain.book.response.GetBooksResponse;
+import com.trevari.test.domain.book.response.BookSearchResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -12,13 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class GetBookService {
+public class BookSearchKeywordService {
     private final BookRepositoryCustom bookRepositoryCustom;
 
-    public GetBooksResponse getBooks(GetBooksDto dto) {
+    public BookSearchResponse getBooks(BooksSearchKeywordDto dto) {
         long start = System.currentTimeMillis();
-        Page<BooksResponseDto> books = bookRepositoryCustom.findBooks(dto);
+        Page<BookSearchResponseDto> books = bookRepositoryCustom.findBooks(dto);
         long executionTime = System.currentTimeMillis() - start;
-        return GetBooksResponse.of(dto.keyword(), books, executionTime);
+        return BookSearchResponse.of(dto.keyword(), books, executionTime);
     }
+
 }
