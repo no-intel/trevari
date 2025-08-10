@@ -16,6 +16,7 @@ public record BookDetailResponse(
         String publisher,
         String image,
         int pages,
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "0.00")
         BigDecimal price,
 
         @JsonFormat(pattern = "yyyy-MM-dd")
