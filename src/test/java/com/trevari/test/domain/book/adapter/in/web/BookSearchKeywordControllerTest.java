@@ -1,5 +1,6 @@
-package com.trevari.test.domain.book.web;
+package com.trevari.test.domain.book.adapter.in.web;
 
+import com.trevari.test.domain.book.adapter.in.web.BookSearchKeywordController;
 import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookSearchResponseDto;
 import com.trevari.test.domain.book.port.out.BookSearchResponse;

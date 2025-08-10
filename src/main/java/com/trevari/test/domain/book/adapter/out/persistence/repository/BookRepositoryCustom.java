@@ -1,4 +1,4 @@
-package com.trevari.test.domain.book.infrastructure.repository;
+package com.trevari.test.domain.book.adapter.out.persistence.repository;
 
 import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookSearchResponseDto;

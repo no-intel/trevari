@@ -1,4 +1,4 @@
-package com.trevari.test.domain.book.infrastructure.querydsl;
+package com.trevari.test.domain.book.adapter.out.persistence.querydsl;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Order;
@@ -7,7 +7,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.trevari.test.domain.book.infrastructure.repository.BookRepositoryCustom;
+import com.trevari.test.domain.book.adapter.out.persistence.repository.BookRepositoryCustom;
 import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookSearchResponseDto;
 import com.trevari.test.domain.book.entity.Book;

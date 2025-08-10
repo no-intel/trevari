@@ -2,7 +2,7 @@ package com.trevari.test.domain.book.application;
 
 import com.trevari.test.domain.book.entity.Book;
 import com.trevari.test.domain.book.exception.NotFoundBookException;
-import com.trevari.test.domain.book.infrastructure.repository.BookRepository;
+import com.trevari.test.domain.book.adapter.out.persistence.repository.BookRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

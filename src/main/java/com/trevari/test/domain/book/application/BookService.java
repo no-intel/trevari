@@ -2,7 +2,7 @@ package com.trevari.test.domain.book.application;
 
 import com.trevari.test.domain.book.entity.Book;
 import com.trevari.test.domain.book.exception.NotFoundBookException;
-import com.trevari.test.domain.book.infrastructure.repository.BookRepository;
+import com.trevari.test.domain.book.adapter.out.persistence.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

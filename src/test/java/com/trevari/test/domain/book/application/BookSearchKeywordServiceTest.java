@@ -2,7 +2,7 @@ package com.trevari.test.domain.book.application;
 
 import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookSearchResponseDto;
-import com.trevari.test.domain.book.infrastructure.repository.BookRepositoryCustom;
+import com.trevari.test.domain.book.adapter.out.persistence.repository.BookRepositoryCustom;
 import com.trevari.test.domain.book.port.out.BookSearchResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,7 @@
-package com.trevari.test.domain.book.infrastructure.querydsl;
+package com.trevari.test.domain.book.adapter.out.persistence.querydsl;
 
 import com.trevari.test.config.QuerydslTestConfig;
+import com.trevari.test.domain.book.adapter.out.persistence.querydsl.BookRepositoryCustomImpl;
 import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookSearchResponseDto;
 import com.trevari.test.domain.book.entity.Book;

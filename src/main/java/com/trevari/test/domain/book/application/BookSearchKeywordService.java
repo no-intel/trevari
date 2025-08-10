@@ -1,6 +1,7 @@
 package com.trevari.test.domain.book.application;
 
-import com.trevari.test.domain.book.infrastructure.repository.BookRepositoryCustom;
+import com.trevari.test.domain.book.adapter.out.persistence.repository.BookRepositoryCustom;
+import com.trevari.test.domain.book.port.in.SearchBookUseCase;
 import com.trevari.test.domain.book.port.in.dto.BooksSearchDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookSearchResponseDto;
 import com.trevari.test.domain.book.port.out.BookSearchResponse;
@@ -12,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class BookSearchKeywordService {
+public class BookSearchKeywordService implements SearchBookUseCase {
     private final BookRepositoryCustom bookRepositoryCustom;
 
     public BookSearchResponse getBooks(BooksSearchDto dto) {
