@@ -201,11 +201,25 @@ class BookRepositoryCustomImplTest {
         BookMultiFinderDto dto = BookMultiFinderDto.of("A-sub", "B-sub", PageRequest.of(0, 10));
 
         // when
-        Page<BookListResponseDto> page = repository.findBooksWithOR(dto);
+        Page<BookListResponseDto> page = repository.findBooksWithOr(dto);
         List<BookListResponseDto> content = page.getContent();
 
         // then
         assertThat(extractTitles(content)).containsExactly("Alpha", "Bravo");
+    }
+
+    @Test
+    @DisplayName("NOT 복합 쿼리 검색 : a, B-sub")
+    void not_query_findBooks() {
+        // given
+        BookMultiFinderDto dto = BookMultiFinderDto.of("a", "B-sub", PageRequest.of(0, 10));
+
+        // when
+        Page<BookListResponseDto> page = repository.findBooksWithNot(dto);
+        List<BookListResponseDto> content = page.getContent();
+
+        // then
+        assertThat(extractTitles(content)).containsExactly("Alpha", "Charlie", "Delta");
     }
 
     private List<String> extractTitles(List<BookListResponseDto> list) {

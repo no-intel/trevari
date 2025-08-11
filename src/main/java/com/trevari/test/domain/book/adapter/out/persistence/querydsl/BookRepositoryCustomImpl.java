@@ -4,6 +4,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -109,18 +110,17 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
 
     @Override
     public Page<BookListResponseDto> findBooksWithNot(BookMultiFinderDto dto) {
-        BooleanBuilder where = new BooleanBuilder();
-        where.and(
-                book.title.containsIgnoreCase(dto.first())
-                        .or(book.subtitle.containsIgnoreCase(dto.first()))
-                        .or(book.author.containsIgnoreCase(dto.first()))
-                        .or(book.publisher.containsIgnoreCase(dto.first()))
-                        .or(book.title.containsIgnoreCase(dto.second()))
-                        .or(book.subtitle.containsIgnoreCase(dto.second()))
-                        .or(book.author.containsIgnoreCase(dto.second()))
-                        .or(book.publisher.containsIgnoreCase(dto.second()))
+        BooleanExpression first = book.title.containsIgnoreCase(dto.first())
+                .or(book.subtitle.containsIgnoreCase(dto.first()))
+                .or(book.author.containsIgnoreCase(dto.first()))
+                .or(book.publisher.containsIgnoreCase(dto.first()));
 
-        );
+        BooleanBuilder where = new BooleanBuilder();
+        BooleanExpression second = book.title.containsIgnoreCase(dto.second())
+                .or(book.subtitle.containsIgnoreCase(dto.second()))
+                .or(book.author.containsIgnoreCase(dto.second()))
+                .or(book.publisher.containsIgnoreCase(dto.second()));
+        where.and(first).and(second.not());
 
         List<BookListResponseDto> content = queryFactory
                 .select(Projections.constructor(BookListResponseDto.class,
