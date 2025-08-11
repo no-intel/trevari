@@ -1,6 +1,6 @@
 package com.trevari.test.domain.book.seed.service;
 
-import com.trevari.test.domain.book.repository.BookRepository;
+import com.trevari.test.domain.book.adapter.out.persistence.repository.BookRepository;
 import com.trevari.test.domain.book.seed.dto.SeedDetailResponse;
 import com.trevari.test.domain.book.seed.dto.SeedSearchResponse;
 import org.junit.jupiter.api.BeforeEach;
