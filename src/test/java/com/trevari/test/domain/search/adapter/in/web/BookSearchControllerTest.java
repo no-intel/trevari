@@ -40,7 +40,7 @@ class BookSearchControllerTest {
 
     @Test
     @DisplayName("단순 검색")
-    void search_with_q_and_paging() throws Exception {
+    void book_search() throws Exception {
         // given
         Pageable page = PageRequest.of(0, 20);
         String keyword = "a";
@@ -79,6 +79,5 @@ class BookSearchControllerTest {
                 .andExpect(jsonPath("$.books[0].isbn").value(9780000000001L))
                 .andExpect(jsonPath("$.books[0].published").value("2024-05-10"))
                 .andExpect(jsonPath("$.searchMetadata.strategy").value(KEYWORD.name()));
-
     }
 }

@@ -37,7 +37,7 @@ class BookNotFinderServiceTest {
     void find_book_not() {
         // given
         Pageable page = PageRequest.of(0, 2);
-        String keyword = "a-B-sub";
+        String keyword = "a-Bravo";
         BookFinderDto dto = BookFinderDto.of(keyword, page);
 
         List<BookListResponseDto> result = List.of(
