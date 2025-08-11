@@ -2,6 +2,7 @@ package com.trevari.test.domain.book.adapter.out.persistence.querydsl;
 
 import com.trevari.test.config.QuerydslTestConfig;
 import com.trevari.test.domain.book.port.in.dto.BookFinderDto;
+import com.trevari.test.domain.book.port.in.dto.BookMultiFinderDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
 import com.trevari.test.domain.book.entity.Book;
 import jakarta.persistence.EntityManager;
@@ -191,6 +192,20 @@ class BookRepositoryCustomImplTest {
 
         // then
         assertThat(extractTitles(content)).containsExactly("Alpha", "Delta", "Charlie");
+    }
+
+    @Test
+    @DisplayName("OR 복합 쿼리 검색 : A-sub, B-sub")
+    void or_query_findBooks() {
+        // given
+        BookMultiFinderDto dto = BookMultiFinderDto.of("A-sub", "B-sub", PageRequest.of(0, 10));
+
+        // when
+        Page<BookListResponseDto> page = repository.findBooksWithOR(dto);
+        List<BookListResponseDto> content = page.getContent();
+
+        // then
+        assertThat(extractTitles(content)).containsExactly("Alpha", "Bravo");
     }
 
     private List<String> extractTitles(List<BookListResponseDto> list) {

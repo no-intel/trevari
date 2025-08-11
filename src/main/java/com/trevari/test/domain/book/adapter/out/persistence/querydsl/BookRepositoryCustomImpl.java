@@ -9,6 +9,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.trevari.test.domain.book.adapter.out.persistence.repository.BookRepositoryCustom;
 import com.trevari.test.domain.book.port.in.dto.BookFinderDto;
+import com.trevari.test.domain.book.port.in.dto.BookMultiFinderDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
 import com.trevari.test.domain.book.entity.Book;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,86 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
                             .or(book.publisher.containsIgnoreCase(k))
             );
         }
+        List<BookListResponseDto> content = queryFactory
+                .select(Projections.constructor(BookListResponseDto.class,
+                        book.isbn,
+                        book.title,
+                        book.subtitle,
+                        book.image,
+                        book.author,
+                        book.isbn,
+                        book.publishDate
+                ))
+                .from(book)
+                .where(where)
+                .orderBy(getOrderSpecifiers(dto.pageable().getSort()))
+                .offset(dto.pageable().getOffset())
+                .limit(dto.pageable().getPageSize())
+                .fetch();
+
+        JPAQuery<Long> total = queryFactory
+                .select(book.count())
+                .where(where)
+                .from(book);
+
+        return PageableExecutionUtils.getPage(content, dto.pageable(), total::fetchOne);
+    }
+
+    @Override
+    public Page<BookListResponseDto> findBooksWithOr(BookMultiFinderDto dto) {
+        BooleanBuilder where = new BooleanBuilder();
+        where.and(
+                book.title.containsIgnoreCase(dto.first())
+                        .or(book.subtitle.containsIgnoreCase(dto.first()))
+                        .or(book.author.containsIgnoreCase(dto.first()))
+                        .or(book.publisher.containsIgnoreCase(dto.first()))
+                        .or(book.title.containsIgnoreCase(dto.second()))
+                        .or(book.subtitle.containsIgnoreCase(dto.second()))
+                        .or(book.author.containsIgnoreCase(dto.second()))
+                        .or(book.publisher.containsIgnoreCase(dto.second()))
+
+        );
+
+        List<BookListResponseDto> content = queryFactory
+                .select(Projections.constructor(BookListResponseDto.class,
+                        book.isbn,
+                        book.title,
+                        book.subtitle,
+                        book.image,
+                        book.author,
+                        book.isbn,
+                        book.publishDate
+                ))
+                .from(book)
+                .where(where)
+                .orderBy(getOrderSpecifiers(dto.pageable().getSort()))
+                .offset(dto.pageable().getOffset())
+                .limit(dto.pageable().getPageSize())
+                .fetch();
+
+        JPAQuery<Long> total = queryFactory
+                .select(book.count())
+                .where(where)
+                .from(book);
+
+        return PageableExecutionUtils.getPage(content, dto.pageable(), total::fetchOne);
+    }
+
+    @Override
+    public Page<BookListResponseDto> findBooksWithNot(BookMultiFinderDto dto) {
+        BooleanBuilder where = new BooleanBuilder();
+        where.and(
+                book.title.containsIgnoreCase(dto.first())
+                        .or(book.subtitle.containsIgnoreCase(dto.first()))
+                        .or(book.author.containsIgnoreCase(dto.first()))
+                        .or(book.publisher.containsIgnoreCase(dto.first()))
+                        .or(book.title.containsIgnoreCase(dto.second()))
+                        .or(book.subtitle.containsIgnoreCase(dto.second()))
+                        .or(book.author.containsIgnoreCase(dto.second()))
+                        .or(book.publisher.containsIgnoreCase(dto.second()))
+
+        );
+
         List<BookListResponseDto> content = queryFactory
                 .select(Projections.constructor(BookListResponseDto.class,
                         book.isbn,
