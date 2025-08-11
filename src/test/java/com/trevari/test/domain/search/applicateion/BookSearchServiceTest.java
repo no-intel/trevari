@@ -59,7 +59,7 @@ class BookSearchServiceTest {
         // when
         BookSearchResponse res = service.searchBook(dto);
 
-        assertThat(res.query()).isEqualTo(keyword);
+        assertThat(res.searchQuery()).isEqualTo(keyword);
         assertThat(res.books().getFirst().id()).isEqualTo(9780000000001L);
         assertThat(res.books().getFirst().title()).isEqualTo("Alpha");
         assertThat(res.books().getFirst().subtitle()).isEqualTo("A-sub");

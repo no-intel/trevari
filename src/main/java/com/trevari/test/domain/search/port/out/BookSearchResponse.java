@@ -8,7 +8,7 @@ import com.trevari.test.domain.search.port.out.item.SearchMetadata;
 import java.util.List;
 
 public record BookSearchResponse(
-        String query,
+        String searchQuery,
         PageInfo pageInfo,
         List<BookItem> books,
         SearchMetadata searchMetadata
