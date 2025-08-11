@@ -2,7 +2,6 @@ package com.trevari.test.domain.book.adapter.out.persistence.querydsl;
 
 import com.trevari.test.config.QuerydslTestConfig;
 import com.trevari.test.domain.book.port.in.dto.BookFinderDto;
-import com.trevari.test.domain.book.port.in.dto.BookMultiFinderDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
 import com.trevari.test.domain.book.entity.Book;
 import jakarta.persistence.EntityManager;
@@ -197,11 +196,8 @@ class BookRepositoryCustomImplTest {
     @Test
     @DisplayName("OR 복합 쿼리 검색 : A-sub, B-sub")
     void or_query_findBooks() {
-        // given
-        BookMultiFinderDto dto = BookMultiFinderDto.of("A-sub", "B-sub", PageRequest.of(0, 10));
-
-        // when
-        Page<BookListResponseDto> page = repository.findBooksWithOr(dto);
+        // given & when
+        Page<BookListResponseDto> page = repository.findBooksWithOr("A-sub", "B-sub", PageRequest.of(0, 10));
         List<BookListResponseDto> content = page.getContent();
 
         // then
@@ -211,11 +207,8 @@ class BookRepositoryCustomImplTest {
     @Test
     @DisplayName("NOT 복합 쿼리 검색 : a, B-sub")
     void not_query_findBooks() {
-        // given
-        BookMultiFinderDto dto = BookMultiFinderDto.of("a", "B-sub", PageRequest.of(0, 10));
-
-        // when
-        Page<BookListResponseDto> page = repository.findBooksWithNot(dto);
+        // given & when
+        Page<BookListResponseDto> page = repository.findBooksWithNot("a", "B-sub", PageRequest.of(0, 10));
         List<BookListResponseDto> content = page.getContent();
 
         // then

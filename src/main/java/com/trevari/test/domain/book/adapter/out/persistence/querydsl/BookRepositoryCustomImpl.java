@@ -9,12 +9,12 @@ import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.trevari.test.domain.book.adapter.out.persistence.repository.BookRepositoryCustom;
-import com.trevari.test.domain.book.port.in.dto.BookFinderDto;
-import com.trevari.test.domain.book.port.in.dto.BookMultiFinderDto;
-import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
 import com.trevari.test.domain.book.entity.Book;
+import com.trevari.test.domain.book.port.in.dto.BookFinderDto;
+import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
@@ -69,17 +69,17 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
     }
 
     @Override
-    public Page<BookListResponseDto> findBooksWithOr(BookMultiFinderDto dto) {
+    public Page<BookListResponseDto> findBooksWithOr(String first, String second, Pageable pageable) {
         BooleanBuilder where = new BooleanBuilder();
         where.and(
-                book.title.containsIgnoreCase(dto.first())
-                        .or(book.subtitle.containsIgnoreCase(dto.first()))
-                        .or(book.author.containsIgnoreCase(dto.first()))
-                        .or(book.publisher.containsIgnoreCase(dto.first()))
-                        .or(book.title.containsIgnoreCase(dto.second()))
-                        .or(book.subtitle.containsIgnoreCase(dto.second()))
-                        .or(book.author.containsIgnoreCase(dto.second()))
-                        .or(book.publisher.containsIgnoreCase(dto.second()))
+                book.title.containsIgnoreCase(first)
+                        .or(book.subtitle.containsIgnoreCase(first))
+                        .or(book.author.containsIgnoreCase(first))
+                        .or(book.publisher.containsIgnoreCase(first))
+                        .or(book.title.containsIgnoreCase(second))
+                        .or(book.subtitle.containsIgnoreCase(second))
+                        .or(book.author.containsIgnoreCase(second))
+                        .or(book.publisher.containsIgnoreCase(second))
 
         );
 
@@ -95,9 +95,9 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
                 ))
                 .from(book)
                 .where(where)
-                .orderBy(getOrderSpecifiers(dto.pageable().getSort()))
-                .offset(dto.pageable().getOffset())
-                .limit(dto.pageable().getPageSize())
+                .orderBy(getOrderSpecifiers(pageable.getSort()))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
 
         JPAQuery<Long> total = queryFactory
@@ -105,22 +105,22 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
                 .where(where)
                 .from(book);
 
-        return PageableExecutionUtils.getPage(content, dto.pageable(), total::fetchOne);
+        return PageableExecutionUtils.getPage(content, pageable, total::fetchOne);
     }
 
     @Override
-    public Page<BookListResponseDto> findBooksWithNot(BookMultiFinderDto dto) {
-        BooleanExpression first = book.title.containsIgnoreCase(dto.first())
-                .or(book.subtitle.containsIgnoreCase(dto.first()))
-                .or(book.author.containsIgnoreCase(dto.first()))
-                .or(book.publisher.containsIgnoreCase(dto.first()));
+    public Page<BookListResponseDto> findBooksWithNot(String first, String second, Pageable pageable) {
+        BooleanExpression in = book.title.containsIgnoreCase(first)
+                .or(book.subtitle.containsIgnoreCase(first))
+                .or(book.author.containsIgnoreCase(first))
+                .or(book.publisher.containsIgnoreCase(first));
 
         BooleanBuilder where = new BooleanBuilder();
-        BooleanExpression second = book.title.containsIgnoreCase(dto.second())
-                .or(book.subtitle.containsIgnoreCase(dto.second()))
-                .or(book.author.containsIgnoreCase(dto.second()))
-                .or(book.publisher.containsIgnoreCase(dto.second()));
-        where.and(first).and(second.not());
+        BooleanExpression out = book.title.containsIgnoreCase(second)
+                .or(book.subtitle.containsIgnoreCase(second))
+                .or(book.author.containsIgnoreCase(second))
+                .or(book.publisher.containsIgnoreCase(second));
+        where.and(in).and(out.not());
 
         List<BookListResponseDto> content = queryFactory
                 .select(Projections.constructor(BookListResponseDto.class,
@@ -134,9 +134,9 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
                 ))
                 .from(book)
                 .where(where)
-                .orderBy(getOrderSpecifiers(dto.pageable().getSort()))
-                .offset(dto.pageable().getOffset())
-                .limit(dto.pageable().getPageSize())
+                .orderBy(getOrderSpecifiers(pageable.getSort()))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
 
         JPAQuery<Long> total = queryFactory
@@ -144,7 +144,7 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
                 .where(where)
                 .from(book);
 
-        return PageableExecutionUtils.getPage(content, dto.pageable(), total::fetchOne);
+        return PageableExecutionUtils.getPage(content, pageable, total::fetchOne);
     }
 
     private OrderSpecifier<?>[] getOrderSpecifiers(Sort sort) {
