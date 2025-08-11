@@ -1,6 +1,7 @@
 package com.trevari.test.domain.book.application;
 
 import com.trevari.test.domain.book.adapter.out.persistence.repository.BookRepositoryCustom;
+import com.trevari.test.domain.book.enums.SearchStrategyEnum;
 import com.trevari.test.domain.book.port.in.BookFinderUseCase;
 import com.trevari.test.domain.book.port.in.dto.BookFinderDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
@@ -15,6 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class BookNotFinderService implements BookFinderUseCase {
     private final BookRepositoryCustom bookRepositoryCustom;
+
+    @Override
+    public String getType() {
+        return SearchStrategyEnum.NOT_OPERATION.name();
+    }
 
     public BookListResponse getBooks(BookFinderDto dto) {
         long start = System.currentTimeMillis();
