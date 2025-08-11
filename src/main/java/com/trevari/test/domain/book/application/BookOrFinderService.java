@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class BookORFinderService implements BookFinderUseCase {
+public class BookOrFinderService implements BookFinderUseCase {
     private final BookRepositoryCustom bookRepositoryCustom;
 
     public BookListResponse getBooks(BookFinderDto dto) {
