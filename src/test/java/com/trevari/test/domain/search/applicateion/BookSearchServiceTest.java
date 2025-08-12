@@ -3,6 +3,7 @@ package com.trevari.test.domain.search.applicateion;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
 import com.trevari.test.domain.book.port.out.BookListResponse;
 import com.trevari.test.domain.search.adapter.out.BookSearchAdapter;
+import com.trevari.test.domain.search.adapter.out.redis.event.PopularKeywordEvent;
 import com.trevari.test.domain.search.enums.SearchStrategyEnum;
 import com.trevari.test.domain.search.port.in.BookSearchDto;
 import com.trevari.test.domain.search.port.out.BookSearchResponse;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +26,7 @@ import java.util.List;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,6 +37,9 @@ class BookSearchServiceTest {
 
     @Mock
     BookSearchParsingUtil parsingUtil;
+
+    @Mock
+    ApplicationEventPublisher publisher;
 
     @InjectMocks
     BookSearchService service;
@@ -62,6 +68,7 @@ class BookSearchServiceTest {
 
         when(parsingUtil.parsingAndCheck(anyString())).thenReturn(SearchStrategyEnum.KEYWORD);
         when(adapter.searchBook(any(String.class), any(Pageable.class), any(SearchStrategyEnum.class))).thenReturn(bookSearchResponse);
+        doNothing().when(publisher).publishEvent(any(PopularKeywordEvent.class));
 
         // when
         BookSearchResponse res = service.searchBook(dto);
@@ -108,6 +115,7 @@ class BookSearchServiceTest {
 
         when(parsingUtil.parsingAndCheck(anyString())).thenReturn(SearchStrategyEnum.OR_OPERATION);
         when(adapter.searchBook(any(String.class), any(Pageable.class), any(SearchStrategyEnum.class))).thenReturn(bookSearchResponse);
+        doNothing().when(publisher).publishEvent(any(PopularKeywordEvent.class));
 
         // when
         BookSearchResponse res = service.searchBook(dto);
@@ -169,6 +177,7 @@ class BookSearchServiceTest {
 
         when(parsingUtil.parsingAndCheck(anyString())).thenReturn(SearchStrategyEnum.NOT_OPERATION);
         when(adapter.searchBook(any(String.class), any(Pageable.class), any(SearchStrategyEnum.class))).thenReturn(bookSearchResponse);
+        doNothing().when(publisher).publishEvent(any(PopularKeywordEvent.class));
 
         // when
         BookSearchResponse res = service.searchBook(dto);
