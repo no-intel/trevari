@@ -4,7 +4,7 @@ import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
 import com.trevari.test.domain.book.port.out.BookListResponse;
 import com.trevari.test.domain.search.applicateion.BookSearchService;
 import com.trevari.test.domain.search.port.in.BookSearchDto;
-import com.trevari.test.domain.search.port.out.BookSearchResponse;
+import com.trevari.test.domain.search.port.out.book.BookSearchResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

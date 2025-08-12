@@ -1,4 +1,4 @@
-package com.trevari.test.domain.search.port.out.item;
+package com.trevari.test.domain.search.port.out.book.item;
 
 public record PageInfo(
         int currentPage,

@@ -1,7 +1,6 @@
-package com.trevari.test.domain.search.port.out.item;
+package com.trevari.test.domain.search.port.out.book.item;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.trevari.test.domain.search.port.out.item;
+package com.trevari.test.domain.search.port.out.book.item;
 
 import com.trevari.test.domain.book.enums.SearchStrategyEnum;
 

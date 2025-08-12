@@ -2,7 +2,7 @@ package com.trevari.test.domain.search.adapter.in.web;
 
 import com.trevari.test.domain.search.applicateion.BookSearchService;
 import com.trevari.test.domain.search.port.in.BookSearchDto;
-import com.trevari.test.domain.search.port.out.BookSearchResponse;
+import com.trevari.test.domain.search.port.out.book.BookSearchResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;

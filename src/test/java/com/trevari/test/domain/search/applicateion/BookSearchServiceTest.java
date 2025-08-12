@@ -2,11 +2,11 @@ package com.trevari.test.domain.search.applicateion;
 
 import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
 import com.trevari.test.domain.book.port.out.BookListResponse;
-import com.trevari.test.domain.search.adapter.out.BookSearchAdapter;
+import com.trevari.test.domain.search.adapter.out.book.BookSearchAdapter;
 import com.trevari.test.domain.search.adapter.out.redis.event.PopularKeywordEvent;
 import com.trevari.test.domain.search.enums.SearchStrategyEnum;
 import com.trevari.test.domain.search.port.in.BookSearchDto;
-import com.trevari.test.domain.search.port.out.BookSearchResponse;
+import com.trevari.test.domain.search.port.out.book.BookSearchResponse;
 import com.trevari.test.domain.search.util.BookSearchParsingUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

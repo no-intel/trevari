@@ -1,9 +1,9 @@
-package com.trevari.test.domain.search.port.out;
+package com.trevari.test.domain.search.port.out.book;
 
 import com.trevari.test.domain.book.port.out.BookListResponse;
-import com.trevari.test.domain.search.port.out.item.BookItem;
-import com.trevari.test.domain.search.port.out.item.PageInfo;
-import com.trevari.test.domain.search.port.out.item.SearchMetadata;
+import com.trevari.test.domain.search.port.out.book.item.BookItem;
+import com.trevari.test.domain.search.port.out.book.item.PageInfo;
+import com.trevari.test.domain.search.port.out.book.item.SearchMetadata;
 
 import java.util.List;
 
