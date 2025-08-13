@@ -24,3 +24,4 @@ spring:
 springdoc:
   swagger-ui:
     tagsSorter: alpha
+    defaultModelsExpandDepth: -1
