@@ -34,7 +34,7 @@ class BookNotFinderServiceTest {
 
     @Test
     @DisplayName("도서 not 복합 조회 - a, B-sub")
-    void find_book_not() {
+    void find_books_not_query() {
         // given
         Pageable page = PageRequest.of(0, 2);
         String keyword = "a-Bravo";

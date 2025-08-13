@@ -28,7 +28,7 @@ class PopularKeywordQueryControllerTest {
 
     @Test
     @DisplayName("인기 검색어 Top10 조회 API")
-    void getTopKeywords_returnsOkResponse() throws Exception {
+    void get_top_keywords_returns_ok_response() throws Exception {
         // given
         List<KeywordRankResponse> mockList = List.of(
                 new KeywordRankResponse(1, "apple", 5L),

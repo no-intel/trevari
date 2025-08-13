@@ -55,7 +55,7 @@ class BookServiceTest {
 
     @Test
     @DisplayName("getBook: isbn없음. NotExistBookException 발생")
-    void getBook_isbn_not_found() {
+    void get_book_isbn_not_found() {
         Long isbn = 9780000000002L;
         // given
         when(repository.findById(anyLong())).thenReturn(Optional.empty());

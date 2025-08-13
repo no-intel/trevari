@@ -28,7 +28,7 @@ class BookSearchRouterTest {
 
     @Test
     @DisplayName("enum으로 UseCase 반환")
-    void route_type() {
+    void route_by_type() {
         // given
         when(simpleUseCase.getType()).thenReturn("KEYWORD");
         when(orUseCase.getType()).thenReturn("OR_OPERATION");

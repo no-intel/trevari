@@ -29,8 +29,8 @@ class PopularKeywordQueryServiceTest {
     PopularKeywordQueryService service;
 
     @Test
-    @DisplayName("topN이 null이면 빈 리스트 반환")
-    void returnsEmpty_whenTopNIsNull() {
+    @DisplayName("인기검색어가 null이면 빈 리스트 반환")
+    void returns_empty_when_topN_is_null() {
         // given
         when(popularKeywordReader.topN(anyInt())).thenReturn(null);
 
@@ -43,7 +43,7 @@ class PopularKeywordQueryServiceTest {
 
     @Test
     @DisplayName("topN이 빈 Set이면 빈 리스트 반환")
-    void returnsEmpty_whenTopNIsEmpty() {
+    void returns_empty_when_topN_is_empty() {
         // given
         when(popularKeywordReader.topN(anyInt())).thenReturn(Set.of());
 
@@ -55,8 +55,8 @@ class PopularKeywordQueryServiceTest {
     }
 
     @Test
-    @DisplayName("정상 Set이면 순서대로 Rank, keyword, score 매핑")
-    void mapsTuplesToResponses_inOrder() {
+    @DisplayName("인기 검색어 조회")
+    void search_popular_keyword() {
         // given
         Set<TypedTuple<String>> set = new LinkedHashSet<>();
 

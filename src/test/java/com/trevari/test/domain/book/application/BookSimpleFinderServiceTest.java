@@ -33,7 +33,7 @@ class BookSimpleFinderServiceTest {
 
     @Test
     @DisplayName("도서 리스트 조회 성공 - 검색어/페이지 정보/실행시간 매핑 확인")
-    void getBooks_success() {
+    void find_books() {
         // given
         Pageable page = PageRequest.of(0, 2);
         String keyword = "a";

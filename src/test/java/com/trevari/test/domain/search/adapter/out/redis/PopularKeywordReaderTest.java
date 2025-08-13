@@ -33,7 +33,7 @@ class PopularKeywordReaderTest {
 
     @Test
     @DisplayName("Redis에서 null/empty Set을 받으면 빈 리스트를 반환한다")
-    void topN_whenNullOrEmptySet_returnsEmpty() {
+    void search_popular_when_empty_set_return_empty() {
         // given
         when(redis.opsForZSet()).thenReturn(zSetOps);
         when(zSetOps.reverseRangeWithScores(GLOBAL_KEY, 0, 9)).thenReturn(Set.of());
@@ -47,7 +47,7 @@ class PopularKeywordReaderTest {
 
     @Test
     @DisplayName("정상 Set이면 그 Set을 그대로 반환")
-    void topN_whenValidSet_mapsToKeywordRankResponse() {
+    void search_popular_when_valid_set() {
         // given
         when(redis.opsForZSet()).thenReturn(zSetOps);
 

@@ -15,13 +15,13 @@ class SeedHttpClientTest {
     SeedHttpClient client;
 
     @Test
-    void seedHttpClientTest_목록_조회() {
+    void get_seed_data() {
         SeedSearchResponse search = client.search("MongoDB", 1);
         assertThat(search.books().size()).isEqualTo(10);
     }
 
     @Test
-    void seedHttpClientTest_상세_조회() {
+    void find_seed_data() {
         SeedDetailResponse response = client.get("9781617294136");
 
         assertThat(response).isNotNull();

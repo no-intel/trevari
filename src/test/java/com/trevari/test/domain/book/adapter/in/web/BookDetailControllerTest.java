@@ -32,8 +32,8 @@ class BookDetailControllerTest {
     BookDetailService service;
 
     @Test
-    @DisplayName("도서 상세 조회 - 유효한 ISBN")
-    void getBooks_valid_isbn_returns_200() throws Exception {
+    @DisplayName("도서 상세 조회 API")
+    void get_book() throws Exception {
 
         BookDetailResponse response = BookDetailResponse.of(
                 Book.builder()

@@ -39,8 +39,8 @@ class BookSearchControllerTest {
     BookSearchService bookSearchService;
 
     @Test
-    @DisplayName("단순 검색")
-    void book_search() throws Exception {
+    @DisplayName("단순 도서 검색 API")
+    void search_book() throws Exception {
         // given
         Pageable page = PageRequest.of(0, 20);
         String keyword = "a";

@@ -59,7 +59,8 @@ class SeedServiceTest {
     }
 
     @Test
-    void setSeed() {
+    void set_seed() {
+        // given
         final String KW = "mongoDB";
         when(bookRepository.count()).thenReturn(0L);
         when(client.search(eq(KW), eq(1))).thenReturn(response);
@@ -69,8 +70,10 @@ class SeedServiceTest {
         when(client.get("9780596523060")).thenReturn(responseDetail);
         when(bookRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
 
+        // when
         seedService.setSeeds();
 
+        // then
         verify(bookRepository, times(1)).save(any());
         verify(client, times(1)).get("9780596523060");
     }

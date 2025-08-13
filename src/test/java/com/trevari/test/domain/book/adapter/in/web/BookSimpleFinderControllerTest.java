@@ -37,8 +37,8 @@ class BookSimpleFinderControllerTest {
     BookSimpleFinderService service;
 
     @Test
-    @DisplayName("도서 단순 검색 - 키워드 X, page = 0, size = 20")
-    void getBooks_no_keyword() throws Exception {
+    @DisplayName("도서 단순 검색 API - 키워드 X, page = 0, size = 20")
+    void get_books_no_keyword() throws Exception {
         //given
         String keyword = null;
         int page = 0;
@@ -85,8 +85,8 @@ class BookSimpleFinderControllerTest {
     }
 
     @Test
-    @DisplayName("도서 단순 검색 - 키워드 a, page = 0, size = 20")
-    void getBooks_keyword_a() throws Exception {
+    @DisplayName("도서 단순 검색 API - 키워드 a, page = 0, size = 20")
+    void get_books_keyword_a() throws Exception {
         //given
         String keyword = "A";
         int page = 0;

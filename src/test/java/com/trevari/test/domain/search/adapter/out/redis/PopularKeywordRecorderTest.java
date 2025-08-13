@@ -20,7 +20,7 @@ class PopularKeywordRecorderTest {
     ZSetOperations<String, String> zSetOps;
 
     @Test
-    @DisplayName("정상 키워드면 ZINCRBY 1 호출")
+    @DisplayName("인기 검색어 저장 - redis score +1")
     void record_increments_score() {
         // given
         when(redisTemplate.opsForZSet()).thenReturn(zSetOps);
