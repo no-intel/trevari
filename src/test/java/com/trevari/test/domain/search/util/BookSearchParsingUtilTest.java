@@ -5,17 +5,12 @@ import com.trevari.test.domain.search.exception.InvalidSearchPatternException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@ExtendWith(MockitoExtension.class)
 class BookSearchParsingUtilTest {
-
-    @InjectMocks
-    BookSearchParsingUtil util;
 
     @Test
     @DisplayName("쿼리 파싱 - 단일키워드 : a")
@@ -24,7 +19,7 @@ class BookSearchParsingUtilTest {
         String query = "a";
 
         // when
-        SearchStrategyEnum strategyEnum = util.parsingAndCheck(query);
+        SearchStrategyEnum strategyEnum = BookSearchParsingUtil.parsingAndCheck(query);
 
         // then
         assertThat(strategyEnum).isEqualTo(SearchStrategyEnum.KEYWORD);
@@ -37,7 +32,7 @@ class BookSearchParsingUtilTest {
         String query = null;
 
         // when
-        SearchStrategyEnum strategyEnum = util.parsingAndCheck(query);
+        SearchStrategyEnum strategyEnum = BookSearchParsingUtil.parsingAndCheck(query);
 
         // then
         assertThat(strategyEnum).isEqualTo(SearchStrategyEnum.KEYWORD);
@@ -50,7 +45,7 @@ class BookSearchParsingUtilTest {
         String query = "";
 
         // when
-        SearchStrategyEnum strategyEnum = util.parsingAndCheck(query);
+        SearchStrategyEnum strategyEnum = BookSearchParsingUtil.parsingAndCheck(query);
 
         // then
         assertThat(strategyEnum).isEqualTo(SearchStrategyEnum.KEYWORD);
@@ -63,7 +58,7 @@ class BookSearchParsingUtilTest {
         String query = " ";
 
         // when
-        SearchStrategyEnum strategyEnum = util.parsingAndCheck(query);
+        SearchStrategyEnum strategyEnum = BookSearchParsingUtil.parsingAndCheck(query);
 
         // then
         assertThat(strategyEnum).isEqualTo(SearchStrategyEnum.KEYWORD);
@@ -76,7 +71,7 @@ class BookSearchParsingUtilTest {
         String query = "a|b";
 
         // when
-        SearchStrategyEnum strategyEnum = util.parsingAndCheck(query);
+        SearchStrategyEnum strategyEnum = BookSearchParsingUtil.parsingAndCheck(query);
 
         // then
         assertThat(strategyEnum).isEqualTo(SearchStrategyEnum.OR_OPERATION);
@@ -89,7 +84,7 @@ class BookSearchParsingUtilTest {
         String query = "a|b|c";
 
         // when & then
-        assertThrows(InvalidSearchPatternException.class, () -> util.parsingAndCheck(query));
+        assertThrows(InvalidSearchPatternException.class, () -> BookSearchParsingUtil.parsingAndCheck(query));
     }
 
     @Test
@@ -99,7 +94,7 @@ class BookSearchParsingUtilTest {
         String query = "|b|c";
 
         // when & then
-        assertThrows(InvalidSearchPatternException.class, () -> util.parsingAndCheck(query));
+        assertThrows(InvalidSearchPatternException.class, () -> BookSearchParsingUtil.parsingAndCheck(query));
     }
 
     @Test
@@ -109,7 +104,7 @@ class BookSearchParsingUtilTest {
         String query = "a-b";
 
         // when
-        SearchStrategyEnum strategyEnum = util.parsingAndCheck(query);
+        SearchStrategyEnum strategyEnum = BookSearchParsingUtil.parsingAndCheck(query);
 
         // then
         assertThat(strategyEnum).isEqualTo(SearchStrategyEnum.NOT_OPERATION);
@@ -122,7 +117,7 @@ class BookSearchParsingUtilTest {
         String query = "a-b-c";
 
         // when & then
-        assertThrows(InvalidSearchPatternException.class, () -> util.parsingAndCheck(query));
+        assertThrows(InvalidSearchPatternException.class, () -> BookSearchParsingUtil.parsingAndCheck(query));
     }
 
     @Test
@@ -132,7 +127,7 @@ class BookSearchParsingUtilTest {
         String query = "-b-c";
 
         // when & then
-        assertThrows(InvalidSearchPatternException.class, () -> util.parsingAndCheck(query));
+        assertThrows(InvalidSearchPatternException.class, () -> BookSearchParsingUtil.parsingAndCheck(query));
     }
 
     @Test
@@ -142,7 +137,7 @@ class BookSearchParsingUtilTest {
         String query = "a|b-c";
 
         // when & then
-        assertThrows(InvalidSearchPatternException.class, () -> util.parsingAndCheck(query));
+        assertThrows(InvalidSearchPatternException.class, () -> BookSearchParsingUtil.parsingAndCheck(query));
     }
 
 }

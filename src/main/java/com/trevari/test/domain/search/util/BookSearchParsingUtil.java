@@ -7,14 +7,13 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.regex.Pattern;
 
-@Component
 public class BookSearchParsingUtil {
 
     private static final String OR ="|";
     private static final String NOT ="-";
 
 
-    public SearchStrategyEnum parsingAndCheck(String query) {
+    public static SearchStrategyEnum parsingAndCheck(String query) {
         if (ObjectUtils.isEmpty(query)) {
             return SearchStrategyEnum.KEYWORD;
         }
@@ -37,14 +36,14 @@ public class BookSearchParsingUtil {
         return SearchStrategyEnum.KEYWORD;
     }
 
-    private void checkOrStrategy(String query) {
+    private static void checkOrStrategy(String query) {
         String[] parts = query.split(Pattern.quote(OR));
         if (parts.length != 2 || parts[0].isBlank() || parts[1].isBlank()) {
             throw new InvalidSearchPatternException();
         }
     }
 
-    private void checkNotStrategy(String query) {
+    private static void checkNotStrategy(String query) {
         String[] parts = query.split(Pattern.quote(NOT));
         if (parts.length != 2 || parts[0].isBlank() || parts[1].isBlank()) {
             throw new InvalidSearchPatternException();

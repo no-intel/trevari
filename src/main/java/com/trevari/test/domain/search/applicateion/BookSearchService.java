@@ -15,11 +15,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BookSearchService {
     private final BookSearchAdapter bookSearchAdapter;
-    private final BookSearchParsingUtil parsingUtil;
     private final ApplicationEventPublisher eventPublisher;
 
     public BookSearchResponse searchBook(BookSearchDto dto) {
-        SearchStrategyEnum strategyEnum = parsingUtil.parsingAndCheck(dto.query());
+        SearchStrategyEnum strategyEnum = BookSearchParsingUtil.parsingAndCheck(dto.query());
         BookListResponse response = bookSearchAdapter.searchBook(dto.query(), dto.pageable(), strategyEnum);
         eventPublisher.publishEvent(PopularKeywordEvent.of(dto.query()));
         return BookSearchResponse.of(dto.query(), response);

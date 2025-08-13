@@ -36,9 +36,6 @@ class BookSearchServiceTest {
     BookSearchAdapter adapter;
 
     @Mock
-    BookSearchParsingUtil parsingUtil;
-
-    @Mock
     ApplicationEventPublisher publisher;
 
     @InjectMocks
@@ -66,7 +63,6 @@ class BookSearchServiceTest {
         Page<BookListResponseDto> stubPage = new PageImpl<>(result, page, 100);
         BookListResponse bookSearchResponse = BookListResponse.of(keyword, stubPage, 10L);
 
-        when(parsingUtil.parsingAndCheck(anyString())).thenReturn(SearchStrategyEnum.KEYWORD);
         when(adapter.searchBook(any(String.class), any(Pageable.class), any(SearchStrategyEnum.class))).thenReturn(bookSearchResponse);
         doNothing().when(publisher).publishEvent(any(PopularKeywordEvent.class));
 
@@ -88,7 +84,7 @@ class BookSearchServiceTest {
     void search_book_or() {
         // given
         Pageable page = PageRequest.of(0, 2);
-        String keyword = "A-sub|B-sub";
+        String keyword = "Alpha|Bravo";
         BookSearchDto dto = BookSearchDto.of(keyword, page);
 
         List<BookListResponseDto> result = List.of(
@@ -113,7 +109,6 @@ class BookSearchServiceTest {
         Page<BookListResponseDto> stubPage = new PageImpl<>(result, page, 100);
         BookListResponse bookSearchResponse = BookListResponse.of(keyword, stubPage, 10L);
 
-        when(parsingUtil.parsingAndCheck(anyString())).thenReturn(SearchStrategyEnum.OR_OPERATION);
         when(adapter.searchBook(any(String.class), any(Pageable.class), any(SearchStrategyEnum.class))).thenReturn(bookSearchResponse);
         doNothing().when(publisher).publishEvent(any(PopularKeywordEvent.class));
 
@@ -175,7 +170,6 @@ class BookSearchServiceTest {
         Page<BookListResponseDto> stubPage = new PageImpl<>(result, page, 100);
         BookListResponse bookSearchResponse = BookListResponse.of(keyword, stubPage, 10L);
 
-        when(parsingUtil.parsingAndCheck(anyString())).thenReturn(SearchStrategyEnum.NOT_OPERATION);
         when(adapter.searchBook(any(String.class), any(Pageable.class), any(SearchStrategyEnum.class))).thenReturn(bookSearchResponse);
         doNothing().when(publisher).publishEvent(any(PopularKeywordEvent.class));
 
