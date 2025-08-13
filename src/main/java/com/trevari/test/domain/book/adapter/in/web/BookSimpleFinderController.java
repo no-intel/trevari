@@ -1,8 +1,8 @@
 package com.trevari.test.domain.book.adapter.in.web;
 
+import com.trevari.test.domain.book.application.BookSimpleFinderService;
 import com.trevari.test.domain.book.port.in.dto.BookFinderDto;
 import com.trevari.test.domain.book.port.out.BookListResponse;
-import com.trevari.test.domain.book.application.BookSimpleFinderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;

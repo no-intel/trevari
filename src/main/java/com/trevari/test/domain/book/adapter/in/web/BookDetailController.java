@@ -1,8 +1,8 @@
 package com.trevari.test.domain.book.adapter.in.web;
 
+import com.trevari.test.domain.book.application.BookDetailService;
 import com.trevari.test.domain.book.port.in.dto.BookDetailDto;
 import com.trevari.test.domain.book.port.out.BookDetailResponse;
-import com.trevari.test.domain.book.application.BookDetailService;
 import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

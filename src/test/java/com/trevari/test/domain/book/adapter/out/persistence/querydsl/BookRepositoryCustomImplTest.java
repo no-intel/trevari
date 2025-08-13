@@ -1,9 +1,9 @@
 package com.trevari.test.domain.book.adapter.out.persistence.querydsl;
 
 import com.trevari.test.config.QuerydslTestConfig;
+import com.trevari.test.domain.book.entity.Book;
 import com.trevari.test.domain.book.port.in.dto.BookFinderDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
-import com.trevari.test.domain.book.entity.Book;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

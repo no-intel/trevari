@@ -1,9 +1,9 @@
 package com.trevari.test.domain.book.adapter.in.web;
 
-import com.trevari.test.domain.book.port.in.dto.BookDetailDto;
-import com.trevari.test.domain.book.entity.Book;
-import com.trevari.test.domain.book.port.out.BookDetailResponse;
 import com.trevari.test.domain.book.application.BookDetailService;
+import com.trevari.test.domain.book.entity.Book;
+import com.trevari.test.domain.book.port.in.dto.BookDetailDto;
+import com.trevari.test.domain.book.port.out.BookDetailResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

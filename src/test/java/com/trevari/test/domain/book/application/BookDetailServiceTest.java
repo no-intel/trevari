@@ -1,8 +1,8 @@
 package com.trevari.test.domain.book.application;
 
-import com.trevari.test.domain.book.port.in.dto.BookDetailDto;
 import com.trevari.test.domain.book.entity.Book;
 import com.trevari.test.domain.book.exception.NotFoundBookException;
+import com.trevari.test.domain.book.port.in.dto.BookDetailDto;
 import com.trevari.test.domain.book.port.out.BookDetailResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

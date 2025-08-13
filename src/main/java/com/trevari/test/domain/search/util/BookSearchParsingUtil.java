@@ -2,7 +2,6 @@ package com.trevari.test.domain.search.util;
 
 import com.trevari.test.domain.search.enums.SearchStrategyEnum;
 import com.trevari.test.domain.search.exception.InvalidSearchPatternException;
-import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import java.util.regex.Pattern;

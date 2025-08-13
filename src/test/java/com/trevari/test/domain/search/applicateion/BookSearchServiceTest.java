@@ -7,7 +7,6 @@ import com.trevari.test.domain.search.adapter.out.redis.event.PopularKeywordEven
 import com.trevari.test.domain.search.enums.SearchStrategyEnum;
 import com.trevari.test.domain.search.port.in.BookSearchDto;
 import com.trevari.test.domain.search.port.out.book.BookSearchResponse;
-import com.trevari.test.domain.search.util.BookSearchParsingUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +24,6 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
