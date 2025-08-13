@@ -1,7 +1,7 @@
 package com.trevari.test.domain.search.adapter.in.web;
 
 import com.trevari.test.domain.search.applicateion.PopularKeywordQueryService;
-import com.trevari.test.domain.search.port.out.redis.KeywordRankResponse;
+import com.trevari.test.domain.search.port.out.redis.PopularKeywordResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +30,9 @@ class PopularKeywordQueryControllerTest {
     @DisplayName("인기 검색어 Top10 조회 API")
     void get_top_keywords_returns_ok_response() throws Exception {
         // given
-        List<KeywordRankResponse> mockList = List.of(
-                new KeywordRankResponse(1, "apple", 5L),
-                new KeywordRankResponse(2, "banana", 3L)
+        List<PopularKeywordResponse> mockList = List.of(
+                new PopularKeywordResponse(1, "apple"),
+                new PopularKeywordResponse(2, "banana")
         );
 
         when(service.getTopKeywords()).thenReturn(mockList);
@@ -43,9 +43,7 @@ class PopularKeywordQueryControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data[0].rank").value(1))
                 .andExpect(jsonPath("$.data[0].keyword").value("apple"))
-                .andExpect(jsonPath("$.data[0].score").value(5))
                 .andExpect(jsonPath("$.data[1].rank").value(2))
-                .andExpect(jsonPath("$.data[1].keyword").value("banana"))
-                .andExpect(jsonPath("$.data[1].score").value(3));
+                .andExpect(jsonPath("$.data[1].keyword").value("banana"));
     }
 }

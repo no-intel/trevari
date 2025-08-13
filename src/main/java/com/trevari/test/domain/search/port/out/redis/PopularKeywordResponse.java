@@ -10,22 +10,18 @@ import java.util.Set;
 
 @Schema(description = "검색 메타 정보")
 @Builder
-public record KeywordRankResponse(
+public record PopularKeywordResponse(
         @Schema(description = "검색 메타 정보", example = "1")
         int rank,
 
         @Schema(description = "검색 메타 정보", example = "java")
-        String keyword,
-
-        @Schema(description = "검색 메타 정보", example = "11")
-        long score
+        String keyword
 ) {
-    public static List<KeywordRankResponse> of(Set<TypedTuple<String>> tuple){
-        List<KeywordRankResponse> result = new ArrayList<>();
+    public static List<PopularKeywordResponse> of(Set<TypedTuple<String>> tuple){
+        List<PopularKeywordResponse> result = new ArrayList<>();
         int rank = 1;
         for (TypedTuple<String> t : tuple) {
-            long score = t.getScore() == null ? 0L : t.getScore().longValue();
-            result.add(new KeywordRankResponse(rank++, t.getValue(), score));
+            result.add(new PopularKeywordResponse(rank++, t.getValue()));
         }
         return result;
     }
