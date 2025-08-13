@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class BookSimpleFinderController {
     public ResponseEntity<BookListResponse> getBooksKeyword(
             @Parameter(description = "검색 keyword", example = "java")
             @RequestParam(required = false) String keyword,
-            @Parameter(description = "페이지 정보", example = "page = 0, size = 10")
+            @ParameterObject
             @PageableDefault Pageable pageable) {
         BookListResponse response = service.getBooks(BookFinderDto.of(keyword, pageable));
         return ResponseEntity.ok(response);

@@ -6,6 +6,7 @@ import com.trevari.test.domain.search.port.out.book.BookSearchResponse;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class BookSearchController {
     public ResponseEntity<BookSearchResponse> searchBook(
             @Parameter(description = "검색 쿼리", example = "a, a|b, a-b 형식만 유효")
             @RequestParam(required = false) String q,
-            @Parameter(description = "페이지 정보", example = "page = 0, size = 10")
+            @ParameterObject
             @PageableDefault Pageable pageable) {
         BookSearchResponse response = bookSearchService.searchBook(BookSearchDto.of(q, pageable));
         return ResponseEntity.ok(response);
