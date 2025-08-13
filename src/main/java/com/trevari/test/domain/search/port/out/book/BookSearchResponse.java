@@ -13,13 +13,10 @@ public record BookSearchResponse(
         @Schema(description = "검색 쿼리", example = "a, a|b, a-b")
         String searchQuery,
 
-        @Schema(description = "검색 페이지 정보")
         PageInfo pageInfo,
 
-        @Schema(description = "검색 도서 정보")
         List<BookItem> books,
 
-        @Schema(description = "검색 메타 데이터")
         SearchMetadata searchMetadata
 ) {
     public static BookSearchResponse of(String query, BookListResponse books) {

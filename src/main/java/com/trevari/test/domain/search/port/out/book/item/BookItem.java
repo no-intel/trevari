@@ -27,6 +27,7 @@ public record BookItem(
         @Schema(description = "ISBN", example = "1001590311930")
         Long isbn,
 
+        @Schema(description = "출판일", example = "2020-01-01")
         @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDate published
 ) {
