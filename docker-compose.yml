@@ -19,8 +19,10 @@ services:
       --innodb_buffer_pool_size=512M
       --innodb_ft_enable_stopword=OFF
       --local_infile=1
+      --secure-file-priv=/docker-entrypoint-initdb.d
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uadmin", "-padmin" ]
       interval: 5s

@@ -25,7 +25,7 @@ public class SeedService {
     private static final String[] TARGETS = {"mongoDB", "javascript", "sql", "tdd", "docker"};
     private static final int PAGES_PER_KEYWORD = 5;
 
-    @EventListener(ApplicationReadyEvent.class)
+//    @EventListener(ApplicationReadyEvent.class)
     public void setSeeds() {
         long count = bookRepository.count();
         if (count > 0) {
