@@ -1,9 +1,9 @@
 package com.trevari.test.domain.book.adapter.in.web;
 
-import com.trevari.test.domain.book.port.in.dto.BookDetailDto;
-import com.trevari.test.domain.book.entity.Book;
-import com.trevari.test.domain.book.port.out.BookDetailResponse;
 import com.trevari.test.domain.book.application.BookDetailService;
+import com.trevari.test.domain.book.entity.Book;
+import com.trevari.test.domain.book.port.in.dto.BookDetailDto;
+import com.trevari.test.domain.book.port.out.BookDetailResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,8 +32,8 @@ class BookDetailControllerTest {
     BookDetailService service;
 
     @Test
-    @DisplayName("도서 상세 조회 - 유효한 ISBN")
-    void getBooks_valid_isbn_returns_200() throws Exception {
+    @DisplayName("도서 상세 조회 API")
+    void get_book() throws Exception {
 
         BookDetailResponse response = BookDetailResponse.of(
                 Book.builder()

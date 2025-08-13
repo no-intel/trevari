@@ -1,4 +1,4 @@
-package com.trevari.test.domain.search.adapter.out;
+package com.trevari.test.domain.search.adapter.out.book;
 
 
 import com.trevari.test.domain.book.port.in.BookFinderUseCase;
@@ -28,7 +28,7 @@ class BookSearchRouterTest {
 
     @Test
     @DisplayName("enum으로 UseCase 반환")
-    void route_type() {
+    void route_by_type() {
         // given
         when(simpleUseCase.getType()).thenReturn("KEYWORD");
         when(orUseCase.getType()).thenReturn("OR_OPERATION");

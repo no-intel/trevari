@@ -2,12 +2,11 @@ package com.trevari.test.domain.search.applicateion;
 
 import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
 import com.trevari.test.domain.book.port.out.BookListResponse;
-import com.trevari.test.domain.search.adapter.out.BookSearchAdapter;
+import com.trevari.test.domain.search.adapter.out.book.BookSearchAdapter;
 import com.trevari.test.domain.search.adapter.out.redis.event.PopularKeywordEvent;
 import com.trevari.test.domain.search.enums.SearchStrategyEnum;
 import com.trevari.test.domain.search.port.in.BookSearchDto;
-import com.trevari.test.domain.search.port.out.BookSearchResponse;
-import com.trevari.test.domain.search.util.BookSearchParsingUtil;
+import com.trevari.test.domain.search.port.out.book.BookSearchResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +24,6 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
@@ -34,9 +32,6 @@ class BookSearchServiceTest {
 
     @Mock
     BookSearchAdapter adapter;
-
-    @Mock
-    BookSearchParsingUtil parsingUtil;
 
     @Mock
     ApplicationEventPublisher publisher;
@@ -66,7 +61,6 @@ class BookSearchServiceTest {
         Page<BookListResponseDto> stubPage = new PageImpl<>(result, page, 100);
         BookListResponse bookSearchResponse = BookListResponse.of(keyword, stubPage, 10L);
 
-        when(parsingUtil.parsingAndCheck(anyString())).thenReturn(SearchStrategyEnum.KEYWORD);
         when(adapter.searchBook(any(String.class), any(Pageable.class), any(SearchStrategyEnum.class))).thenReturn(bookSearchResponse);
         doNothing().when(publisher).publishEvent(any(PopularKeywordEvent.class));
 
@@ -88,7 +82,7 @@ class BookSearchServiceTest {
     void search_book_or() {
         // given
         Pageable page = PageRequest.of(0, 2);
-        String keyword = "A-sub|B-sub";
+        String keyword = "Alpha|Bravo";
         BookSearchDto dto = BookSearchDto.of(keyword, page);
 
         List<BookListResponseDto> result = List.of(
@@ -113,7 +107,6 @@ class BookSearchServiceTest {
         Page<BookListResponseDto> stubPage = new PageImpl<>(result, page, 100);
         BookListResponse bookSearchResponse = BookListResponse.of(keyword, stubPage, 10L);
 
-        when(parsingUtil.parsingAndCheck(anyString())).thenReturn(SearchStrategyEnum.OR_OPERATION);
         when(adapter.searchBook(any(String.class), any(Pageable.class), any(SearchStrategyEnum.class))).thenReturn(bookSearchResponse);
         doNothing().when(publisher).publishEvent(any(PopularKeywordEvent.class));
 
@@ -175,7 +168,6 @@ class BookSearchServiceTest {
         Page<BookListResponseDto> stubPage = new PageImpl<>(result, page, 100);
         BookListResponse bookSearchResponse = BookListResponse.of(keyword, stubPage, 10L);
 
-        when(parsingUtil.parsingAndCheck(anyString())).thenReturn(SearchStrategyEnum.NOT_OPERATION);
         when(adapter.searchBook(any(String.class), any(Pageable.class), any(SearchStrategyEnum.class))).thenReturn(bookSearchResponse);
         doNothing().when(publisher).publishEvent(any(PopularKeywordEvent.class));
 

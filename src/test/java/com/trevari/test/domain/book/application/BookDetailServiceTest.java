@@ -1,8 +1,8 @@
 package com.trevari.test.domain.book.application;
 
-import com.trevari.test.domain.book.port.in.dto.BookDetailDto;
 import com.trevari.test.domain.book.entity.Book;
 import com.trevari.test.domain.book.exception.NotFoundBookException;
+import com.trevari.test.domain.book.port.in.dto.BookDetailDto;
 import com.trevari.test.domain.book.port.out.BookDetailResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ class BookDetailServiceTest {
 
     @Test
     @DisplayName("ISBN으로 도서 상세 조회 성공 시, BookDetailResponse로 매핑된다")
-    void getBook_success() {
+    void get_book() {
         // given
         long isbn = 9780000000001L;
 
@@ -69,7 +69,7 @@ class BookDetailServiceTest {
 
     @Test
     @DisplayName("ISBN으로 도서 조회 실패 시, NotFoundBookException 발생")
-    void getBook_notFound() {
+    void get_book_not_found() {
         // given
         BookDetailDto dto = mock(BookDetailDto.class);
 

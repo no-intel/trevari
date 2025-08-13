@@ -34,7 +34,7 @@ class BookOrFinderServiceTest {
 
     @Test
     @DisplayName("도서 OR 복합 조회 - A-sub, B-sub")
-    void find_book_or() {
+    void find_book_or_query() {
         // given
         Pageable page = PageRequest.of(0, 2);
         String keyword = "A-sub|B-sub";

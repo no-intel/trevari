@@ -1,9 +1,9 @@
 package com.trevari.test.domain.book.adapter.in.web;
 
+import com.trevari.test.domain.book.application.BookSimpleFinderService;
 import com.trevari.test.domain.book.port.in.dto.BookFinderDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
 import com.trevari.test.domain.book.port.out.BookListResponse;
-import com.trevari.test.domain.book.application.BookSimpleFinderService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,8 +37,8 @@ class BookSimpleFinderControllerTest {
     BookSimpleFinderService service;
 
     @Test
-    @DisplayName("도서 단순 검색 - 키워드 X, page = 0, size = 20")
-    void getBooks_no_keyword() throws Exception {
+    @DisplayName("도서 단순 검색 API - 키워드 X, page = 0, size = 20")
+    void get_books_no_keyword() throws Exception {
         //given
         String keyword = null;
         int page = 0;
@@ -85,8 +85,8 @@ class BookSimpleFinderControllerTest {
     }
 
     @Test
-    @DisplayName("도서 단순 검색 - 키워드 a, page = 0, size = 20")
-    void getBooks_keyword_a() throws Exception {
+    @DisplayName("도서 단순 검색 API - 키워드 a, page = 0, size = 20")
+    void get_books_keyword_a() throws Exception {
         //given
         String keyword = "A";
         int page = 0;

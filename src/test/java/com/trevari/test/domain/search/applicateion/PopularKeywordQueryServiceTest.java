@@ -1,7 +1,7 @@
 package com.trevari.test.domain.search.applicateion;
 
 import com.trevari.test.domain.search.adapter.out.redis.PopularKeywordReader;
-import com.trevari.test.domain.search.port.out.redis.KeywordRankResponse;
+import com.trevari.test.domain.search.port.out.redis.PopularKeywordResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,13 +29,13 @@ class PopularKeywordQueryServiceTest {
     PopularKeywordQueryService service;
 
     @Test
-    @DisplayName("topN이 null이면 빈 리스트 반환")
-    void returnsEmpty_whenTopNIsNull() {
+    @DisplayName("인기검색어가 null이면 빈 리스트 반환")
+    void returns_empty_when_topN_is_null() {
         // given
         when(popularKeywordReader.topN(anyInt())).thenReturn(null);
 
         // when
-        List<KeywordRankResponse> responses = service.getTopKeywords();
+        List<PopularKeywordResponse> responses = service.getTopKeywords();
 
         // then
         assertThat(responses).isEmpty();
@@ -43,30 +43,28 @@ class PopularKeywordQueryServiceTest {
 
     @Test
     @DisplayName("topN이 빈 Set이면 빈 리스트 반환")
-    void returnsEmpty_whenTopNIsEmpty() {
+    void returns_empty_when_topN_is_empty() {
         // given
         when(popularKeywordReader.topN(anyInt())).thenReturn(Set.of());
 
         // when
-        List<KeywordRankResponse> responses = service.getTopKeywords();
+        List<PopularKeywordResponse> responses = service.getTopKeywords();
 
         // then
         assertThat(responses).isEmpty();
     }
 
     @Test
-    @DisplayName("정상 Set이면 순서대로 Rank, keyword, score 매핑")
-    void mapsTuplesToResponses_inOrder() {
+    @DisplayName("인기 검색어 조회")
+    void search_popular_keyword() {
         // given
         Set<TypedTuple<String>> set = new LinkedHashSet<>();
 
         TypedTuple<String> t1 = mock(TypedTuple.class);
         when(t1.getValue()).thenReturn("apple");
-        when(t1.getScore()).thenReturn(5.0);
 
         TypedTuple<String> t2 = mock(TypedTuple.class);
         when(t2.getValue()).thenReturn("banana");
-        when(t2.getScore()).thenReturn(2.0);
 
         set.add(t1);
         set.add(t2);
@@ -74,14 +72,14 @@ class PopularKeywordQueryServiceTest {
         when(popularKeywordReader.topN(anyInt())).thenReturn(set);
 
         // when
-        List<KeywordRankResponse> responses = service.getTopKeywords();
+        List<PopularKeywordResponse> responses = service.getTopKeywords();
 
         // then
         assertThat(responses).hasSize(2);
 
+        assertThat(responses.getFirst().rank()).isEqualTo(1);
         assertThat(responses.getFirst().keyword()).isEqualTo(t1.getValue());
-        assertThat(responses.getFirst().score()).isEqualTo(Math.round(t1.getScore()));
+        assertThat(responses.get(1).rank()).isEqualTo(2);
         assertThat(responses.get(1).keyword()).isEqualTo(t2.getValue());
-        assertThat(responses.get(1).score()).isEqualTo(Math.round(t2.getScore()));
     }
 }

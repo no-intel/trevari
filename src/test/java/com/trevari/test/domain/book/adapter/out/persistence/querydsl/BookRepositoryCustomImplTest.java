@@ -1,9 +1,9 @@
 package com.trevari.test.domain.book.adapter.out.persistence.querydsl;
 
 import com.trevari.test.config.QuerydslTestConfig;
+import com.trevari.test.domain.book.entity.Book;
 import com.trevari.test.domain.book.port.in.dto.BookFinderDto;
 import com.trevari.test.domain.book.port.in.dto.Projection.BookListResponseDto;
-import com.trevari.test.domain.book.entity.Book;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -87,7 +87,7 @@ class BookRepositoryCustomImplTest {
 
     @Test
     @DisplayName("심플 페이지네이션: 첫 페이지 2건, 총 4건")
-    void simple_findBooks_pagination() {
+    void simple_find_books_pagination() {
         // given
         BookFinderDto dto = new BookFinderDto(null, PageRequest.of(0, 2));
 
@@ -103,7 +103,7 @@ class BookRepositoryCustomImplTest {
 
     @Test
     @DisplayName("단일 정렬: title desc")
-    void simple_sort_findBooks_title_desc() {
+    void simple_sort_find_books_title_desc() {
         // given
         BookFinderDto dto = new BookFinderDto(
                 null,
@@ -119,7 +119,7 @@ class BookRepositoryCustomImplTest {
 
     @Test
     @DisplayName("복합 정렬: publishDate desc, title desc (A -> B -> D -> C)")
-    void mult_sort_findBooks_publishDate_title() {
+    void multi_sort_find_books_publishDate_title() {
         // given
         BookFinderDto dto = new BookFinderDto(
                 null,
@@ -141,8 +141,8 @@ class BookRepositoryCustomImplTest {
     }
 
     @Test
-    @DisplayName("심플 키워드 검색 : l")
-    void simple_keyword_findBooks() {
+    @DisplayName("단순 도서 검색 : l")
+    void simple_find_books() {
         // given
         BookFinderDto dto = new BookFinderDto("l", PageRequest.of(0, 10));
 
@@ -156,7 +156,7 @@ class BookRepositoryCustomImplTest {
 
     @Test
     @DisplayName("심플 키워드 검색 : l & 심플 정렬 : title desc")
-    void simple_keyword_sort_findBooks_title_desc() {
+    void simple_find_books_keyword_l_sort_title_desc() {
         // given
         BookFinderDto dto = new BookFinderDto(
                 "l",
@@ -173,7 +173,7 @@ class BookRepositoryCustomImplTest {
 
     @Test
     @DisplayName("심플 키워드 검색 : l & 복합 정렬 : publishDate desc, title desc")
-    void simple_keyword_sort_findBooks_publishDate_title() {
+    void simple_keyword_sort_find_books_publishDate_title() {
         // given
         BookFinderDto dto = new BookFinderDto(
                 "l",
@@ -195,7 +195,7 @@ class BookRepositoryCustomImplTest {
 
     @Test
     @DisplayName("OR 복합 쿼리 검색 : A-sub, B-sub")
-    void or_query_findBooks() {
+    void or_query_find_books() {
         // given & when
         Page<BookListResponseDto> page = repository.findBooksWithOr("A-sub", "B-sub", PageRequest.of(0, 10));
         List<BookListResponseDto> content = page.getContent();
@@ -206,7 +206,7 @@ class BookRepositoryCustomImplTest {
 
     @Test
     @DisplayName("NOT 복합 쿼리 검색 : a, B-sub")
-    void not_query_findBooks() {
+    void not_query_find_books() {
         // given & when
         Page<BookListResponseDto> page = repository.findBooksWithNot("a", "B-sub", PageRequest.of(0, 10));
         List<BookListResponseDto> content = page.getContent();

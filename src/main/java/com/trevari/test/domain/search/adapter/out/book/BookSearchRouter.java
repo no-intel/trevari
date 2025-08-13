@@ -1,4 +1,4 @@
-package com.trevari.test.domain.search.adapter.out;
+package com.trevari.test.domain.search.adapter.out.book;
 
 import com.trevari.test.domain.book.port.in.BookFinderUseCase;
 import com.trevari.test.domain.search.enums.SearchStrategyEnum;

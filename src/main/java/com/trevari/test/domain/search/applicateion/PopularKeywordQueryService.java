@@ -1,7 +1,7 @@
 package com.trevari.test.domain.search.applicateion;
 
 import com.trevari.test.domain.search.adapter.out.redis.PopularKeywordReader;
-import com.trevari.test.domain.search.port.out.redis.KeywordRankResponse;
+import com.trevari.test.domain.search.port.out.redis.PopularKeywordResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.ZSetOperations.TypedTuple;
 import org.springframework.stereotype.Service;
@@ -15,9 +15,9 @@ public class PopularKeywordQueryService {
     private final PopularKeywordReader popularKeywordReader;
     private final static int TOP = 10;
 
-    public List<KeywordRankResponse> getTopKeywords() {
+    public List<PopularKeywordResponse> getTopKeywords() {
         Set<TypedTuple<String>> topN = popularKeywordReader.topN(TOP);
         if (topN == null || topN.isEmpty()) return List.of();
-        return KeywordRankResponse.of(topN);
+        return PopularKeywordResponse.of(topN);
     }
 }

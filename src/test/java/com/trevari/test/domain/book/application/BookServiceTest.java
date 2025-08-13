@@ -1,8 +1,8 @@
 package com.trevari.test.domain.book.application;
 
+import com.trevari.test.domain.book.adapter.out.persistence.repository.BookRepository;
 import com.trevari.test.domain.book.entity.Book;
 import com.trevari.test.domain.book.exception.NotFoundBookException;
-import com.trevari.test.domain.book.adapter.out.persistence.repository.BookRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -55,7 +55,7 @@ class BookServiceTest {
 
     @Test
     @DisplayName("getBook: isbn없음. NotExistBookException 발생")
-    void getBook_isbn_not_found() {
+    void get_book_isbn_not_found() {
         Long isbn = 9780000000002L;
         // given
         when(repository.findById(anyLong())).thenReturn(Optional.empty());
