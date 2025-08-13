@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "도서 검색 API", description = "단순 키워드, OR, NOT 검색")
+@Tag(name = "03.도서 검색 API", description = "단순 키워드, OR, NOT 검색")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/search/books")

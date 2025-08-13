@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Tag(name = "인기 검색어 조회 API", description = "인기 검색어 TOP 10")
+@Tag(name = "04.인기 검색어 조회 API", description = "인기 검색어 TOP 10")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/search/popular-keywords")

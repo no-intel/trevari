@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "도서 상세 검색 API", description = "ISBN 기준 도서 상세 검색 API.")
+@Tag(name = "02.도서 상세 검색 API", description = "ISBN 기준 도서 상세 검색 API.")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/books")
